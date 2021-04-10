@@ -168,13 +168,13 @@ var scrollVis = function () {
       .attr('class', 'title openvis-title')
       .attr('x', width / 2)
       .attr('y', height / 3)
-      .text('2013');
+      .text('2021');
 
     g.append('text')
       .attr('class', 'sub-title openvis-title')
       .attr('x', width / 2)
       .attr('y', (height / 3) + (height / 5))
-      .text('OpenVis Conf');
+      .text('Datahacks report');
 
     g.selectAll('.openvis-title')
       .attr('opacity', 0);
@@ -198,18 +198,52 @@ var scrollVis = function () {
     // square grid
     // @v4 Using .merge here to ensure
     // new and old data have same attrs applied
-    var squares = g.selectAll('.square').data(wordData, function (d) { return d.word; });
-    var squaresE = squares.enter()
-      .append('rect')
-      .classed('square', true);
-    squares = squares.merge(squaresE)
-      .attr('width', squareSize)
-      .attr('height', squareSize)
-      .attr('fill', '#fff')
-      .classed('fill-square', function (d) { return d.filler; })
-      .attr('x', function (d) { return d.x;})
-      .attr('y', function (d) { return d.y;})
-      .attr('opacity', 0);
+
+
+			d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered_comma.csv",
+
+			  // When reading the csv, I must format variables:
+			  function(d){
+				return { date : d3.timeParse("%Y-%m-%d")(d.date), value : d.value }
+			  },
+
+			  // Now I can use this dataset:
+			  function(data) {
+
+				// Add X axis --> it is a date format
+				var x = d3.scaleTime()
+				  .domain(d3.extent(data, function(d) { return d.date; }))
+				  .range([ 0, width ]);
+				g.append("g")
+				  .attr("transform", "translate(0," + height + ")")
+				  .call(d3.axisBottom(x))
+				  .classed('square', true)
+				  .attr('opacity', 0);
+
+				// Add Y axis
+				var y = d3.scaleLinear()
+				  .domain([0, d3.max(data, function(d) { return +d.value; })])
+				  .range([ height, 0 ]);
+				g.append("g")
+				  .call(d3.axisLeft(y))
+				  .classed('square', true)
+				  .attr('opacity', 0);
+
+				// Add the line
+				g.append("path")
+				  .datum(data)
+				  .attr("fill", "none")
+				  .attr("stroke", "steelblue")
+				  .attr("stroke-width", 1.5)
+				  .attr("d", d3.line()
+					.x(function(d) { return x(d.date) })
+					.y(function(d) { return y(d.value) })
+					)
+				  .classed('square', true)
+				  .attr('opacity', 0)
+
+			})
+
 
     // barchart
     // @v4 Using .merge here to ensure
@@ -391,7 +425,7 @@ var scrollVis = function () {
       .transition()
       .duration(600)
       .delay(function (d) {
-        return 5 * d.row;
+        return 5; //I EDITED THIS
       })
       .attr('opacity', 1.0)
       .attr('fill', '#ddd');
