@@ -1,6 +1,6 @@
 
 .container {
-  width: 890px;
+  width: 1390px;
 }
 
 #graphic {
@@ -11,7 +11,7 @@
 #sections {
   position: relative;
   display: inline-block;
-  width: 250px;
+  width: 750px;
   top: 0px;
   z-index: 90;
   padding-bottom: 200px;

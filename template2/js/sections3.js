@@ -211,6 +211,7 @@ var scrollVis = function () {
       .attr('y', function (d) { return d.y;})
       .attr('opacity', 0);
 
+//CORRELATION HEATMAP START
 d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_correlogram.csv", function(error, rows) {
 
 	  // Going from wide to long format
@@ -312,11 +313,54 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 		  .attr("opacity", 0)
 
 	});
+//CORRELATION HEATMAP END
 
+//LINE CHART START
+			d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered_comma.csv",
+
+			  // When reading the csv, I must format variables:
+			  function(d){
+				return { date : d3.timeParse("%Y-%m-%d")(d.date), value : d.value }
+			  },
+
+			  // Now I can use this dataset:
+			  function(data) {
+
+				// Add X axis --> it is a date format
+				var x = d3.scaleTime()
+				  .domain(d3.extent(data, function(d) { return d.date; }))
+				  .range([ 0, width ]);
+				g.append("g")
+				  .attr("transform", "translate(0," + height + ")")
+				  .call(d3.axisBottom(x))
+				  .classed('line', true)
+				  .attr('opacity', 0);
+
+				// Add Y axis
+				var y = d3.scaleLinear()
+				  .domain([0, d3.max(data, function(d) { return +d.value; })])
+				  .range([ height, 0 ]);
+				g.append("g")
+				  .call(d3.axisLeft(y))
+				  .classed('line', true)
+				  .attr('opacity', 0);
+
+				// Add the line
+				g.append("path")
+				  .datum(data)
+				  .attr("fill", "none")
+				  .attr("stroke", "steelblue")
+				  .attr("stroke-width", 1.5)
+				  .attr("d", d3.line()
+					.x(function(d) { return x(d.date) })
+					.y(function(d) { return y(d.value) })
+					)
+				  .classed('line', true)
+				  .attr('opacity', 0)
+			})
+//LINE CHART END
 
     // barchart
-    // @v4 Using .merge here to ensure
-    // new and old data have same attrs applied
     var bars = g.selectAll('.bar').data(fillerCounts);
     var barsE = bars.enter()
       .append('rect')
@@ -394,15 +438,15 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
   var setupSections = function () {
     // activateFunctions are called each
     // time the active section changes
-    activateFunctions[0] = showTitle;
-    activateFunctions[1] = showFillerTitle;
-    activateFunctions[2] = showGrid;
-    activateFunctions[3] = highlightGrid;
-    activateFunctions[4] = showBar;
-    activateFunctions[5] = showHistPart;
-    activateFunctions[6] = showHistAll;
-    activateFunctions[7] = showCough;
-    activateFunctions[8] = showHistAll;
+    activateFunctions[0] = show0;
+    activateFunctions[1] = show1;
+    activateFunctions[2] = show2;
+    activateFunctions[3] = show3;
+    activateFunctions[4] = show4;
+    activateFunctions[5] = show5;
+    activateFunctions[6] = show6;
+    activateFunctions[7] = show7;
+    activateFunctions[8] = show6;
 
     // updateFunctions are called while
     // in a particular section to update
@@ -439,7 +483,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    * shows: intro title
    *
    */
-  function showTitle() {
+  function show0() {
     g.selectAll('.count-title')
       .transition()
       .duration(0)
@@ -459,7 +503,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    * shows: filler count title
    *
    */
-  function showFillerTitle() {
+  function show1() {
     g.selectAll('.openvis-title')
       .transition()
       .duration(0)
@@ -475,10 +519,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       .duration(600)
       .attr('opacity', 1.0);
 	  
-    g.selectAll('.cor')
-      .transition()
-      .duration(0)
-      .attr('opacity', 0);
+
   }
 
   /**
@@ -489,7 +530,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    * shows: square grid
    *
    */
-  function showGrid() {
+  function show2() {
     g.selectAll('.count-title')
       .transition()
       .duration(0)
@@ -503,12 +544,21 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       })
       .attr('opacity', 1.0)
       .attr('fill', '#ddd');
-	  
-    g.selectAll('.cor')
-      .transition()
-      .duration(0)
-      .attr('opacity', 1);
+    // g.selectAll('.fill-square')
+      // .transition('move-fills')
+      // .duration(800)
+      // .attr('x', function (d) {
+        // return d.x;
+      // })
+      // .attr('y', function (d) {
+        // return d.y;
+      // });
 
+    g.selectAll('.fill-square')
+      .transition()
+      .duration(800)
+      .attr('opacity', 1.0)
+      .attr('fill', function (d) { return d.filler ? '#008080' : '#ddd'; });
   }
 
   /**
@@ -519,43 +569,34 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    *  filler words. also ensures squares
    *  are moved back to their place in the grid
    */
-  function highlightGrid() {
-    hideAxis();
-    g.selectAll('.bar')
-      .transition()
-      .duration(600)
-      .attr('width', 0);
+  function show3() {
+     hideAxis();
+    // g.selectAll('.bar')
+      // .transition()
+      // .duration(600)
+      // .attr('width', 0);
 
-    g.selectAll('.bar-text')
-      .transition()
-      .duration(0)
-      .attr('opacity', 0);
+    // g.selectAll('.bar-text')
+      // .transition()
+      // .duration(0)
+      // .attr('opacity', 0);
 
-
-    g.selectAll('.square')
+    g.selectAll('.fill-square')
       .transition()
-      .duration(0)
+      .duration(800)
       .attr('opacity', 1.0)
       .attr('fill', '#ddd');
 
-    // use named transition to ensure
-    // move happens even if other
-    // transitions are interrupted.
-    g.selectAll('.fill-square')
-      .transition('move-fills')
-      .duration(800)
-      .attr('x', function (d) {
-        return d.x;
-      })
-      .attr('y', function (d) {
-        return d.y;
-      });
-
-    g.selectAll('.fill-square')
+    g.selectAll('.square')
       .transition()
       .duration(800)
       .attr('opacity', 1.0)
-      .attr('fill', function (d) { return d.filler ? '#008080' : '#ddd'; });
+      .attr('fill', '#ddd');
+	  
+    g.selectAll('.cor')
+      .transition()
+      .duration(0)
+      .attr('opacity', 0);
   }
 
   /**
@@ -566,25 +607,16 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    * shows: barchart
    *
    */
-  function showBar() {
+  function show4() {
     // ensure bar axis is set
-    showAxis(xAxisBar);
-
+    //showAxis(xAxisBar);
+	hideAxis();
     g.selectAll('.square')
       .transition()
       .duration(800)
       .attr('opacity', 0);
 
-    g.selectAll('.fill-square')
-      .transition()
-      .duration(800)
-      .attr('x', 0)
-      .attr('y', function (d, i) {
-        return yBarScale(i % 3) + yBarScale.bandwidth() / 2;
-      })
-      .transition()
-      .duration(0)
-      .attr('opacity', 0);
+
 
     g.selectAll('.hist')
       .transition()
@@ -593,22 +625,23 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       .attr('y', function () { return height; })
       .style('opacity', 0);
 
-    g.selectAll('.bar')
-      .transition()
-      .delay(function (d, i) { return 300 * (i + 1);})
-      .duration(600)
-      .attr('width', function (d) { return xBarScale(d.value); });
+    // g.selectAll('.bar')
+      // .transition()
+      // .delay(function (d, i) { return 300 * (i + 1);})
+      // .duration(600)
+      // .attr('width', function (d) { return xBarScale(d.value); });
 
-    g.selectAll('.bar-text')
-      .transition()
-      .duration(600)
-      .delay(1200)
-      .attr('opacity', 1);
+    // g.selectAll('.bar-text')
+      // .transition()
+      // .duration(600)
+      // .delay(1200)
+      // .attr('opacity', 1);
 	  
     g.selectAll('.cor')
       .transition()
-      .duration(0)
-      .attr('opacity', 0);
+      .duration(600)
+      .attr('opacity', 1);
+
   }
 
   /**
@@ -620,19 +653,19 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    * shows: first half of histogram
    *
    */
-  function showHistPart() {
+  function show5() {
     // switch the axis to histogram one
     showAxis(xAxisHist);
 
-    g.selectAll('.bar-text')
-      .transition()
-      .duration(0)
-      .attr('opacity', 0);
+    // g.selectAll('.bar-text')
+      // .transition()
+      // .duration(0)
+      // .attr('opacity', 0);
 
-    g.selectAll('.bar')
-      .transition()
-      .duration(600)
-      .attr('width', 0);
+    // g.selectAll('.bar')
+      // .transition()
+      // .duration(600)
+      // .attr('width', 0);
 
     // here we only show a bar if
     // it is before the 15 minute mark
@@ -642,6 +675,11 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       .attr('y', function (d) { return (d.x0 < 15) ? yHistScale(d.length) : height; })
       .attr('height', function (d) { return (d.x0 < 15) ? height - yHistScale(d.length) : 0; })
       .style('opacity', function (d) { return (d.x0 < 15) ? 1.0 : 1e-6; });
+	  
+    g.selectAll('.cor')
+      .transition()
+      .duration(0)
+      .attr('opacity', 0);
   }
 
   /**
@@ -654,7 +692,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    * shows: all histogram bars
    *
    */
-  function showHistAll() {
+  function show6() {
     // ensure the axis to histogram one
     showAxis(xAxisHist);
 
@@ -687,7 +725,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    * shows: histogram
    *
    */
-  function showCough() {
+  function show7() {
     // ensure the axis to histogram one
     showAxis(xAxisHist);
 
