@@ -556,6 +556,9 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 	activateFunctions[18] = show17;
 	activateFunctions[19] = show18;
 	activateFunctions[20] = show19;
+	activateFunctions[21] = show20;
+	activateFunctions[22] = show21;
+	activateFunctions[23] = show22;
 	
 
     // updateFunctions are called while
@@ -564,7 +567,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
     // Most sections do not need to be updated
     // for all scrolling and so are set to
     // no-op functions.
-    for (var i = 0; i < 21; i++) {
+    for (var i = 0; i < 22; i++) {
       updateFunctions[i] = function () {};
     }
     //updateFunctions[7] = updateCough;
@@ -1032,6 +1035,14 @@ function trend() {
   function show20() {
 	  hideLine();
 	  document.getElementById('models_pairplot').style.opacity = 1;
+  }
+  
+  function show21() {
+	  hideLine();
+  }
+  
+  function show22() {
+	  hideLine();
   }
 
   /**
