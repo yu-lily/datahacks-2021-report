@@ -168,13 +168,13 @@ var scrollVis = function () {
       .attr('class', 'title openvis-title')
       .attr('x', width / 2)
       .attr('y', height / 3)
-      .text('2021');
+      .text('2013');
 
     g.append('text')
       .attr('class', 'sub-title openvis-title')
       .attr('x', width / 2)
       .attr('y', (height / 3) + (height / 5))
-      .text('Datahacks report');
+      .text('OpenVis Conf');
 
     g.selectAll('.openvis-title')
       .attr('opacity', 0);
@@ -195,105 +195,123 @@ var scrollVis = function () {
     g.selectAll('.count-title')
       .attr('opacity', 0);
 
-    // // square grid
-	var squares
-	var squaresE
-    // var squares = g.selectAll('.square').data(wordData, function (d) { return d.word; });
-    // var squaresE = squares.enter()
-      // .append('rect')
-      // .classed('square', true);
-    // squares = squares.merge(squaresE)
-      // .attr('width', squareSize)
-      // .attr('height', squareSize)
-      // .attr('fill', '#fff')
-      // .classed('fill-square', function (d) { return d.filler; })
-      // .attr('x', function (d) { return d.x;})
-      // .attr('y', function (d) { return d.y;})
-      // .attr('opacity', 0);
+    // square grid
+    // @v4 Using .merge here to ensure
+    // new and old data have same attrs applied
+    var squares = g.selectAll('.square').data(wordData, function (d) { return d.word; });
+    var squaresE = squares.enter()
+      .append('rect')
+      .classed('square', true);
+    squares = squares.merge(squaresE)
+      .attr('width', squareSize)
+      .attr('height', squareSize)
+      .attr('fill', '#fff')
+      .classed('fill-square', function (d) { return d.filler; })
+      .attr('x', function (d) { return d.x;})
+      .attr('y', function (d) { return d.y;})
+      .attr('opacity', 0);
 
-		// // // d3.csv("data/original/observations_train.csv",
-		  // // // // When reading the csv, I must format variables:
-		  // // // function(d){
-			// // // return { date : d3.timeParse("%Y-%m-%d")(d.date.substring(0,10)), value : d.value }
-		  // // // },
-					  
-		  // // // function getSquarePos(rawData) {
-			// // // return rawData.map(function (d, i) {
-			  // // // // is this word a filler word?
-			  // // // d.isnull = (d.value === 'NULL') ? true : false;
+d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_correlogram.csv", function(error, rows) {
 
-			  // // // // positioning for square visual
-			  // // // // stored here to make it easier
-			  // // // // to keep track of.
-			  // // // d.col = i % numPerRow;
-			  // // // d.x = d.col * (squareSize + squarePad);
-			  // // // d.row = Math.floor(i / numPerRow);
-			  // // // d.y = d.row * (squareSize + squarePad);
-			  // // // console.log('hi');
-			  // // // return d;
-			// // // });
-		  // // // },
-		  // // // function(original_data){
-			  // // // console.log('hiii');
-			// // // squares = g.selectAll('.square').data(original_data, function (d) { return d.value; });
-			// // // squaresE = squares.enter()
-			  // // // .append('rect')
-			  // // // .classed('square', true);
-			// // // squares = squares.merge(squaresE)
-			  // // // .attr('width', squareSize)
-			  // // // .attr('height', squareSize)
-			  // // // .attr('fill', '#fff')
-			  // // // .classed('fill-square', function (d) { return d.isnull; })
-			  // // // .attr('x', function (d) { return d.x;})
-			  // // // .attr('y', function (d) { return d.y;})
-			  // // // .attr('opacity', 0);
-		  // // // }
-		// // // );
+	  // Going from wide to long format
+	  var data = [];
+	  rows.forEach(function(d) {
+		var x = d[""];
+		delete d[""];
+		for (prop in d) {
+		  var y = prop,
+			value = d[prop];
+		  data.push({
+			x: x,
+			y: y,
+			value: +value
+		  });
+		}
+	  });
+
+	  // List of all variables and number of them
+	  var domain = d3.set(data.map(function(d) { return d.x })).values()
+	  var num = Math.sqrt(data.length)
+
+	  // Create a color scale
+	  var color = d3.scaleLinear()
+		.domain([-1, 0, 1])
+		.range(["#B22222", "#fff", "#000080"]);
+
+	  // Create a size scale for bubbles on top right. Watch out: must be a rootscale!
+	  var size = d3.scaleSqrt()
+		.domain([0, 1])
+		.range([0, 9]);
+
+	  // X scale
+	  var x = d3.scalePoint()
+		.range([margin.bottom, width - margin.right])
+		.domain(domain)
+
+	  // Y scale
+	  var y = d3.scalePoint()
+		.range([margin.left, height - margin.top])
+		.domain(domain)
+
+	  // Create one 'g' element for each cell of the correlogram
+	  var cor = g.selectAll(".cor")
+		.data(data)
+		.enter()
+		.append("g")
+		  .attr("class", "cor")
+		  .attr("transform", function(d) {
+			return "translate(" + x(d.x) + "," + y(d.y) + ")";
+		  });
+
+	  // Low left part + Diagonal: Add the text with specific color
+	  cor
+		.filter(function(d){
+		  var ypos = domain.indexOf(d.y);
+		  var xpos = domain.indexOf(d.x);
+		  return xpos <= ypos;
+		})
+		.append("text")
+		  .attr("opacity", 0)
+		  .attr("class", "cor")
+		  .attr("y", 5)
+		  .text(function(d) {
+			if (d.x === d.y) {
+			  return d.x;
+			} else {
+			  return d.value.toFixed(2);
+			}
+		  })
+		  .style("font-size", 11)
+		  .style("text-align", "center")
+		  .style("fill", function(d){
+			if (d.x === d.y) {
+			  return "#000";
+			} else {
+			  return color(d.value);
+			}
+		  });
 
 
-			// d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered_comma.csv",
+	  // Up right part: add circles
+	  cor
+		.filter(function(d){
+		  var ypos = domain.indexOf(d.y);
+		  var xpos = domain.indexOf(d.x);
+		  return xpos > ypos;
+		})
+		.append("circle")
+		  .attr("class", "cor")
+		  .attr("r", function(d){ return size(Math.abs(d.value)) })
+		  .style("fill", function(d){
+			if (d.x === d.y) {
+			  return "#000";
+			} else {
+			  return color(d.value);
+			}
+		  })
+		  .attr("opacity", 0)
 
-			  // // When reading the csv, I must format variables:
-			  // function(d){
-				// return { date : d3.timeParse("%Y-%m-%d")(d.date), value : d.value }
-			  // },
-
-			  // // Now I can use this dataset:
-			  // function(data) {
-
-				// // Add X axis --> it is a date format
-				// var x = d3.scaleTime()
-				  // .domain(d3.extent(data, function(d) { return d.date; }))
-				  // .range([ 0, width ]);
-				// g.append("g")
-				  // .attr("transform", "translate(0," + height + ")")
-				  // .call(d3.axisBottom(x))
-				  // .classed('square', true)
-				  // .attr('opacity', 0);
-
-				// // Add Y axis
-				// var y = d3.scaleLinear()
-				  // .domain([0, d3.max(data, function(d) { return +d.value; })])
-				  // .range([ height, 0 ]);
-				// g.append("g")
-				  // .call(d3.axisLeft(y))
-				  // .classed('square', true)
-				  // .attr('opacity', 0);
-
-				// // Add the line
-				// g.append("path")
-				  // .datum(data)
-				  // .attr("fill", "none")
-				  // .attr("stroke", "steelblue")
-				  // .attr("stroke-width", 1.5)
-				  // .attr("d", d3.line()
-					// .x(function(d) { return x(d.date) })
-					// .y(function(d) { return y(d.value) })
-					// )
-				  // .classed('square', true)
-				  // .attr('opacity', 0)
-
-			// })
+	});
 
 
     // barchart
@@ -322,10 +340,6 @@ var scrollVis = function () {
       .style('font-size', '110px')
       .attr('fill', 'white')
       .attr('opacity', 0);
-
-			
-
-
 
     // histogram
     // @v4 Using .merge here to ensure
@@ -460,6 +474,11 @@ var scrollVis = function () {
       .transition()
       .duration(600)
       .attr('opacity', 1.0);
+	  
+    g.selectAll('.cor')
+      .transition()
+      .duration(0)
+      .attr('opacity', 0);
   }
 
   /**
@@ -480,10 +499,16 @@ var scrollVis = function () {
       .transition()
       .duration(600)
       .delay(function (d) {
-        return 5; //I EDITED THIS
+        return 5 * d.row;
       })
       .attr('opacity', 1.0)
       .attr('fill', '#ddd');
+	  
+    g.selectAll('.cor')
+      .transition()
+      .duration(0)
+      .attr('opacity', 1);
+
   }
 
   /**
@@ -579,6 +604,11 @@ var scrollVis = function () {
       .duration(600)
       .delay(1200)
       .attr('opacity', 1);
+	  
+    g.selectAll('.cor')
+      .transition()
+      .duration(0)
+      .attr('opacity', 0);
   }
 
   /**
