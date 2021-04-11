@@ -10,7 +10,7 @@
   <div id='graphic'>
     <div id='sections'>
       <section class="step">
-        <div class="title">Introduction</div>
+        <div class="title"><h3>Introduction</h3></div>
 		<p>
 		We are living in an environment that is tremendously impacted by economics. Our lifestyles, decisions we make, and the future that we are hoping to create are involved in the current economy. However, we would never know when the next economic crisis would hit us but what we can do is to forecast the future
 		economy by utilizing the current and the past data that we have to prepare ourselves for the crisis so that we could avert the crisis.
@@ -33,7 +33,7 @@
 		</ol>
       </section>
       <section class="step">
-        <div class="title">Data Cleaning / Preprocessing</div>
+        <div class="title"><h3>Data Cleaning / Preprocessing</h3></div>
         <p>As we are extracting our data from a raw real-time dataset, the dataset contains both valid, informative data and some invalid information such as missing values due to the various measure rates and holidays.
 		To obtain a readable, clear, and understandable dataset, we will be performing data cleaning to assure the accuracy for our data modeling.</p>
       </section>
@@ -99,8 +99,8 @@
         <p>As this dataset contains many different measures collected at different times and rates, a majority of the values will be missing. In the above heatmap, each of the black pixels indicates a missing value.
 		Some observations are that the only measures that are  collected constantly throughout the date range of this dataset are the Equity Market Volatility: Infectious Disease Tracker and Equity Market-Related Economic Uncertainty indices.
 		As both of these measure economic uncertainty, we hypothesize that these will serve as important features for our forecasting models.</p>
-		<p>Also, the data for the S&P 500 index, the target variable, don’t appear in this dataset until early 2011. For this reason, we omit all data that are collected before early 2010,
-		one year before S&P 500 visibility, as we still need some information leading up to that point, as discussed in the previous section.</p>
+		<p>Also, the data for the S & P 500 index, the target variable, don’t appear in this dataset until early 2011. 3.33% of the missingness in the training dataset is found in the S & P 500 index. For this reason, we omit all data that are collected before early 2010, one year before S & P 500 visibility,
+		as we still need some information leading up to that point, as discussed in the previous section. </p>
 		<p>Another observation is that as indicated by the clusters of non-missing data for measures that are collected monthly, such as the unemployment rate, and the Gross Value of Industrial Products (GVIP) indicators, is that they are collected on a somewhat consistent basis within a few months that occur every two years.
 		The unemployment rates in this dataset are collected with a Household Survey which may be administered at these points in time. The reasons for the GVIP missingness are unknown.</p>
 		<p>Additionally, the inconsistencies in the missingness patterns in the monthly data in particular suggest that the data are collected at different days within each month.
@@ -109,14 +109,28 @@
       </section>
       <section class="step">
         <div class="title">Visualizations - Seasonality</div>
-        Not sure if we'll need this section...
+        <p>Seasonality occurs when there is a discernible cyclical pattern dependent on the date within our time series.</p>
+		<p>We run inspection tests for seasonality by first taking the subset of the dataset that contains non-seasonally adjusted features. We resample all daily features into monthly means for clarity, and retain the values of the weekly and monthly features.
+		Of all series, we discover that the following five have some seasonal components:</p>
+		<ul>
+			<li><b>BUSAPPWNSAUS (Business Applications)</b> - subset of all EIN (Employer Identification Number) applications</li>
+			<li><b>CBUSAPPWNSAUS (Business Applications from Corporations)</b> - subset of High-Propensity Business Applications (HBA)</li>
+			<li><b>INFECTDISEMVTRACKD (Equity Market Volatility: Infectious Disease Tracker)</b></li>
+			<li><b>T10YIE</b> - ten-year breakeven inflation rate</li>
+			<li><b>WLEMUINDXD (Equity Market-Related Economic Uncertainty Index)</b></li>
+		</ul>
+		<p>The autocorrelation plots show the correlation of series with itself, when it is separated by varying time lags.
+		We can observe the seasonality in each of the above autocorrelation plots as there are apparent cyclical patterns and spikes at lags equal to the period. We proceeded by removing seasonality by means of a polynomial fit, as mentioned in the Preprocessing section.</p>
+		<p>It is necessary to understand and remove the seasonal components of our time series as they lead to <b>clearer signals</b>, and therefore clearer relationships between our inputs and the output.</p>
       </section>
       <section class="step">
         <div class="title">Visualizations - Trend</div>
-        Not sure if we'll need this section...
+        <p>Trend is another part of a classical time series decomposition. It refers to a continuous increase or decrease over time. We test for the presence of trends in our data with a linear regression model, and we observe trend if the resulting R2 value is greater than or equal to 0.75. We find a handful of features that exhibit trends, examples of which are displayed below.
+		The blue trends are the trends we extracted from the seasonal decomposition of our original signals.</p>
+		<p>We use these results combined with differencing to detrend our signals (see Data Cleaning and Preprocessing), a process we hypothesize will improve the performance of our subsequent forecasting models.</p>
       </section>
       <section class="step">
-        <div class="title">Analysis and Modeling</div>
+        <div class="title"><h3>Analysis and Modeling</h3></div>
         <p>Given the abundance of rich data after cleaning and preprocessing and the complex non-linear ways in which the equities markets react to the economy,
 		we felt that deep-learning based approaches should in-theory provide us the best results.
 		Given the sequential nature of our input data, LSTM-based models were the natural choice. We explored three different sub-classes of models:</p>
