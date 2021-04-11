@@ -971,13 +971,16 @@ function trend() {
   function show12() {
 	  document.getElementById('time_series').style.opacity = 0;
 	  document.getElementById('missingness').style.opacity = 1;
+	  document.getElementById('seasonality_vis').style.opacity = 0;
   }
   
   function show13() {
 	  document.getElementById('missingness').style.opacity = 0;
+	  document.getElementById('seasonality_vis').style.opacity = 1;
   }
   
   function show14() {
+	  document.getElementById('seasonality_vis').style.opacity = 0;
   }
   
   function show15() {
