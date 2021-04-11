@@ -458,71 +458,71 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 			})
 //LINE CHART 2 END
     // barchart
-    var bars = g.selectAll('.bar').data(fillerCounts);
-    var barsE = bars.enter()
-      .append('rect')
-      .attr('class', 'bar');
-    bars = bars.merge(barsE)
-      .attr('x', 0)
-      .attr('y', function (d, i) { return yBarScale(i);})
-      .attr('fill', function (d, i) { return barColors[i]; })
-      .attr('width', 0)
-      .attr('height', yBarScale.bandwidth());
+    // var bars = g.selectAll('.bar').data(fillerCounts);
+    // var barsE = bars.enter()
+      // .append('rect')
+      // .attr('class', 'bar');
+    // bars = bars.merge(barsE)
+      // .attr('x', 0)
+      // .attr('y', function (d, i) { return yBarScale(i);})
+      // .attr('fill', function (d, i) { return barColors[i]; })
+      // .attr('width', 0)
+      // .attr('height', yBarScale.bandwidth());
 
-    var barText = g.selectAll('.bar-text').data(fillerCounts);
-    barText.enter()
-      .append('text')
-      .attr('class', 'bar-text')
-      .text(function (d) { return d.key + '…'; })
-      .attr('x', 0)
-      .attr('dx', 15)
-      .attr('y', function (d, i) { return yBarScale(i);})
-      .attr('dy', yBarScale.bandwidth() / 1.2)
-      .style('font-size', '110px')
-      .attr('fill', 'white')
-      .attr('opacity', 0);
+    // var barText = g.selectAll('.bar-text').data(fillerCounts);
+    // barText.enter()
+      // .append('text')
+      // .attr('class', 'bar-text')
+      // .text(function (d) { return d.key + '…'; })
+      // .attr('x', 0)
+      // .attr('dx', 15)
+      // .attr('y', function (d, i) { return yBarScale(i);})
+      // .attr('dy', yBarScale.bandwidth() / 1.2)
+      // .style('font-size', '110px')
+      // .attr('fill', 'white')
+      // .attr('opacity', 0);
 
-    // histogram
-    // @v4 Using .merge here to ensure
-    // new and old data have same attrs applied
-    var hist = g.selectAll('.hist').data(histData);
-    var histE = hist.enter().append('rect')
-      .attr('class', 'hist');
-    hist = hist.merge(histE).attr('x', function (d) { return xHistScale(d.x0); })
-      .attr('y', height)
-      .attr('height', 0)
-      .attr('width', xHistScale(histData[0].x1) - xHistScale(histData[0].x0) - 1)
-      .attr('fill', barColors[0])
-      .attr('opacity', 0);
+    // // histogram
+    // // @v4 Using .merge here to ensure
+    // // new and old data have same attrs applied
+    // var hist = g.selectAll('.hist').data(histData);
+    // var histE = hist.enter().append('rect')
+      // .attr('class', 'hist');
+    // hist = hist.merge(histE).attr('x', function (d) { return xHistScale(d.x0); })
+      // .attr('y', height)
+      // .attr('height', 0)
+      // .attr('width', xHistScale(histData[0].x1) - xHistScale(histData[0].x0) - 1)
+      // .attr('fill', barColors[0])
+      // .attr('opacity', 0);
 
-    // cough title
-    g.append('text')
-      .attr('class', 'sub-title cough cough-title')
-      .attr('x', width / 2)
-      .attr('y', 60)
-      .text('cough')
-      .attr('opacity', 0);
+    // // cough title
+    // g.append('text')
+      // .attr('class', 'sub-title cough cough-title')
+      // .attr('x', width / 2)
+      // .attr('y', 60)
+      // .text('cough')
+      // .attr('opacity', 0);
 
-    // arrowhead from
-    // http://logogin.blogspot.com/2013/02/d3js-arrowhead-markers.html
-    svg.append('defs').append('marker')
-      .attr('id', 'arrowhead')
-      .attr('refY', 2)
-      .attr('markerWidth', 6)
-      .attr('markerHeight', 4)
-      .attr('orient', 'auto')
-      .append('path')
-      .attr('d', 'M 0,0 V 4 L6,2 Z');
+    // // arrowhead from
+    // // http://logogin.blogspot.com/2013/02/d3js-arrowhead-markers.html
+    // svg.append('defs').append('marker')
+      // .attr('id', 'arrowhead')
+      // .attr('refY', 2)
+      // .attr('markerWidth', 6)
+      // .attr('markerHeight', 4)
+      // .attr('orient', 'auto')
+      // .append('path')
+      // .attr('d', 'M 0,0 V 4 L6,2 Z');
 
-    g.append('path')
-      .attr('class', 'cough cough-arrow')
-      .attr('marker-end', 'url(#arrowhead)')
-      .attr('d', function () {
-        var line = 'M ' + ((width / 2) - 10) + ' ' + 80;
-        line += ' l 0 ' + 230;
-        return line;
-      })
-      .attr('opacity', 0);
+    // g.append('path')
+      // .attr('class', 'cough cough-arrow')
+      // .attr('marker-end', 'url(#arrowhead)')
+      // .attr('d', function () {
+        // var line = 'M ' + ((width / 2) - 10) + ' ' + 80;
+        // line += ' l 0 ' + 230;
+        // return line;
+      // })
+      // .attr('opacity', 0);
   };
 
   /**
@@ -543,7 +543,9 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
     activateFunctions[5] = show5;
     activateFunctions[6] = show6;
     activateFunctions[7] = show7;
-    activateFunctions[8] = show6;
+    activateFunctions[8] = show8;
+	activateFunctions[9] = show9;
+	activateFunctions[10] = show10;
 
     // updateFunctions are called while
     // in a particular section to update
@@ -551,7 +553,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
     // Most sections do not need to be updated
     // for all scrolling and so are set to
     // no-op functions.
-    for (var i = 0; i < 9; i++) {
+    for (var i = 0; i < 11; i++) {
       updateFunctions[i] = function () {};
     }
     updateFunctions[7] = updateCough;
@@ -736,10 +738,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       .attr('opacity', 1.0)
       .attr('fill', '#ddd');
 	  
-    g.selectAll('.cor')
-      .transition()
-      .duration(0)
-      .attr('opacity', 0);
+	document.getElementById('mutual_info').style.opacity = 0;
   }
 
   /**
@@ -779,20 +778,9 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       // .duration(600)
       // .delay(1200)
       // .attr('opacity', 1);
-	  
+	document.getElementById('mutual_info').style.opacity = 1;
+
     g.selectAll('.cor')
-      .transition()
-      .duration(600)
-      .attr('opacity', 1);
-	  
-	  
-    g.selectAll('.line2')
-      .transition()
-      .duration(600)
-      .attr('opacity', 0);
-	  
-	
-    g.selectAll('.line2-main')
       .transition()
       .duration(0)
       .attr('opacity', 0);
@@ -830,33 +818,12 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       // .attr('y', function (d) { return (d.x0 < 15) ? yHistScale(d.length) : height; })
       // .attr('height', function (d) { return (d.x0 < 15) ? height - yHistScale(d.length) : 0; })
       // .style('opacity', function (d) { return (d.x0 < 15) ? 1.0 : 1e-6; });
-	  
-    g.selectAll('.cor')
-      .transition()
-      .duration(0)
-      .attr('opacity', 0);
-	  
-    g.selectAll('.line2')
+	document.getElementById('mutual_info').style.opacity = 0;
+	document.getElementById('models1').style.opacity = 0;
+	g.selectAll('.cor')
       .transition()
       .duration(600)
-      .attr('opacity', 1.0);
-	  
-    function transition(path) {
-        path.transition()
-            .duration(1000)
-            .attrTween("stroke-dasharray", tweenDash);
-    }
-    function tweenDash() {
-        var l = this.getTotalLength(),
-            i = d3.interpolateString("0," + l, l + "," + l);
-        return function (t) { return i(t); };
-    }
-	
-    g.selectAll('.line2-main')
-      .transition()
-      .duration(0)
-      .attr('opacity', 1)
-	  .call(transition);
+      .attr('opacity', 1);
   }
 
   /**
@@ -891,6 +858,12 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       // .attr('y', function (d) { return yHistScale(d.length); })
       // .attr('height', function (d) { return height - yHistScale(d.length); })
       // .style('opacity', 1.0);
+	document.getElementById('models1').style.opacity = 1;
+	document.getElementById('models2').style.opacity = 0;
+    g.selectAll('.cor')
+      .transition()
+      .duration(0)
+      .attr('opacity', 0);
   }
 
   /**
@@ -903,6 +876,9 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    *
    */
   function show7() {
+	document.getElementById('models1').style.opacity = 0;  
+	document.getElementById('models2').style.opacity = 1;
+	document.getElementById('models3').style.opacity = 0;
     // // ensure the axis to histogram one
     // showAxis(xAxisHist);
 
@@ -912,6 +888,52 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       // .attr('y', function (d) { return yHistScale(d.length); })
       // .attr('height', function (d) { return height - yHistScale(d.length); })
       // .style('opacity', 1.0);
+  }
+
+  function show8() {
+	document.getElementById('models2').style.opacity = 0;
+	document.getElementById('models3').style.opacity = 1;
+	document.getElementById('models_pairplot').style.opacity = 0;
+
+  }
+
+  function show9() {
+	document.getElementById('models3').style.opacity = 0;
+	document.getElementById('models_pairplot').style.opacity = 1;
+    g.selectAll('.line2')
+      .transition()
+      .duration(600)
+      .attr('opacity', 0);
+	
+    g.selectAll('.line2-main')
+      .transition()
+      .duration(0)
+      .attr('opacity', 0);
+  }
+  
+  function show10() {
+	document.getElementById('models_pairplot').style.opacity = 0;
+	g.selectAll('.line2')
+      .transition()
+      .duration(600)
+      .attr('opacity', 1.0);
+	  
+    function transition(path) {
+        path.transition()
+            .duration(1000)
+            .attrTween("stroke-dasharray", tweenDash);
+    }
+    function tweenDash() {
+        var l = this.getTotalLength(),
+            i = d3.interpolateString("0," + l, l + "," + l);
+        return function (t) { return i(t); };
+    }
+	
+    g.selectAll('.line2-main')
+      .transition()
+      .duration(0)
+      .attr('opacity', 1)
+	  .call(transition);
   }
 
   /**
