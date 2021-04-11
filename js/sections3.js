@@ -334,7 +334,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 				  .attr("transform", "translate(0," + height + ")")
 				  .call(d3.axisBottom(x))
 				  .classed('line', true)
-				  .attr('opacity', 0);
+				  .attr('opacity', 1);
 
 				// Add Y axis
 				var y = d3.scaleLinear()
@@ -343,14 +343,14 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 				g.append("g")
 				  .call(d3.axisLeft(y))
 				  .classed('line', true)
-				  .attr('opacity', 0);
+				  .attr('opacity', 1);
 
 				g.append("text")
 					.attr("x", (width / 2))             
 					.attr("y", 0 - (margin.top / 2))
 					.attr("text-anchor", "middle")  
 					.classed('line', true)
-					.attr('opacity', 0)
+					.attr('opacity', 1)
 					.style("font-family", 'Arial,Helvetica,"san-serif"')
 					.text('S&P 500 Closing Prices');
 
@@ -365,7 +365,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 					.y(function(d) { return y(d.value) })
 					)
 				  .classed('line', true)
-				  .attr('opacity', 0)
+				  .attr('opacity', 1)
 			})
 //LINE CHART END
 
