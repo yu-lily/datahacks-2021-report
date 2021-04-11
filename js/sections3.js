@@ -365,7 +365,20 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 					.y(function(d) { return y(d.value) })
 					)
 				  .classed('line', true)
+				  .classed('line-main', true)
 				  .attr('opacity', 1)
+				  .call(transition);
+				  
+    function transition(path) {
+        path.transition()
+            .duration(2000)
+            .attrTween("stroke-dasharray", tweenDash);
+    }
+    function tweenDash() {
+        var l = this.getTotalLength(),
+            i = d3.interpolateString("0," + l, l + "," + l);
+        return function (t) { return i(t); };
+    }
 			})
 //LINE CHART END
 
