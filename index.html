@@ -1,120 +1,87 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <script src = 'd3.js'></script>
-    <script src = 'https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js'></script>
-
-    <meta property='og:title' content='Datahacks 2021 Report'/>
-    <meta property='og:image' content='https://github.com/cuthchow/college-majors-visualisation/blob/master/preview.png'/>
-    <meta property='og:description' content='Report for the advanced track of Datahacks 2021. '/>
-    <meta property='og:url' content='https://yu-lily.github.io/datahacks-2021-report/'/>
-
-
-    <title>Datahacks 2021 Report</title>
+  <title>Datahacks 2021 Report</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
-
-
 <body>
-    <!-- <div id="info">
-        a
-    </div> -->
-    <img src="https://github.com/cuthchow/college-majors-visualisation/blob/master/preview.png" alt="">
-    <div id="tooltip"></div>
-    <div id="graphic">
-        <div id="sections">
-            <section class="step">
-                <div class="title"></div>
-                <br><br>
-                <h1>Datahacks 2021 Report</h1>
-                <p>By Devanshu Desai, Camille Dunning, Janette ____, Lily Yu</p><!--<a href = 'https://www.linkedin.com/in/cuthbertchow/'>Cuthbert Chow</a>-->
-                <p>(Note: If the visualisation doesn't fit your screen, try zooming out with ctrl + - / Cmd + -.) </p>
-                <p>
-					<h2>Introduction</h2><br><br>
-					Words go here
-                </p>
-                
-            </section>
-            <section class="step">
-                <p>
-                Here, we have clustered the majors based on the broader category, of which there are 16 in total. The size 
-                of the bubbles represent the median salary of graduates from the major. 
+<div class="container">
+  <div id='graphic'>
+    <div id='sections'>
+      <section class="step">
+        <div class="title">Introduction</div>
+		<p>
+		We are living in an environment that is tremendously impacted by economics. Our lifestyles, decisions we make, and the future that we are hoping to create are involved in the current economy. However, we would never know when the next economic crisis would hit us but what we can do is to forecast the future
+		economy by utilizing the current and the past data that we have to prepare ourselves for the crisis so that we could avert the crisis.
 
-                When sorted like this, it's quite clear that engineering majors of all kinds have generally above-average median salaries. <br><br>
-                On the other end, it appears that majors in the field of psychology on average have the lowest graduate salaries. <br>
-                </p>
-                <svg id = 'legend' width = '400px' height = '500px'></svg>
-            </section>
-            <section class = 'step'>
-                <svg id = 'legend2' width = '400px' height = '450px'></svg><br><br>
-                Bear in mind that some of these figures may suffer from small sample sizes. If you hover over a bubble, you can see additional information,
-                including the number of students enrolled in a given major. Salary figures from degrees with lower 
-                enrolment may be less accurate due to the smaller pool of student respondents
-            </section>
-            <section class="step">
-                <br><br><br><br><br><br>
-                <p>
-                    If we rearrange all the data points into a histogram format, the salary potential of engineering majors becomes
-                even more stark, as almost all the points on the right of the graph are colored yellow, for engineering. As for all the 
-                other majors, they follow a fairly diverse yet tightly spaced distribution, with the modal class being
-                salaries between $34,000 and $36,000.
-                </p>
-                
-            </section>
-            <section class="step">
-                
-                <p>
-                <h2>Does Gender Influence Chosen Majors?</h2>
-                Now what if we took those same categories, but coloured them based on the proportion of the students which are male or female? 
-                In this chart, blue represents majors with > 60% male, and red represents > 60% female, and the grey bubbles represent the more gender 
-                balanced courses.
-                <br><br>(Hover over the labels if you've forgotten the category)<br><br>
-
-                What is striking about this graphic is that almost every category grouping of majors are either decidedly more female-weighted or male-weighted,
-                with the exception of perhaps the business and physical sciences majors.  
-                </p>
-                 
-            </section>
-            <section class="step">
-                When we plot the % of students in a major being female against the median salary of students in the major, a fairly clear trend emerges. 
-                It appears that majors with a higher proportion of male students also produce students with higher median wages. <br><br> In fact, a linear model
-                would predict that for every added percentage of female students in a given major, the median annual salary drops by $306 USD.
-            </section>
-            <section class="step">
-                So we've seen the most 'profitable' majors, as well as the ones with the most uneven gender distributions. But what are students 
-                actually enrolling in the most frequently? What can enrolment numbers tell us about actual interest in each major? This chart has the bubbles 
-                sized based on the number of students enrolled in each major, and coloured by category. 
-                <svg id = 'legend3' width = '400px' height = '350px'></svg>
-                Psychology is the clear leader in this regard, with over 390,000 students enrolled. Business related topics such as general business, business management,
-                accounting and finance are all also heavily enrolled.
-            </section>
-            <section class="step">
-                <h1>The End</h1>
-                <p>
-                    Hopefully, this has helped you in deciding what major you hope to study. If you want to take a deeper look into the data for yourself, you can download
-                    all the csv files <a href = 'https://www.kaggle.com/fivethirtyeight/fivethirtyeight-college-majors-dataset'>here</a>.
-                    <br><br>
-                    Special thanks to Jim Vallandingham for his article on <a href = 'https://vallandingham.me/scroller.html'>creating scrolling visualisations using D3.js</a>. All 
-                    of the code associated with this project can be found on its <a href = 'https://github.com/cuthchow/college-majors-visualisation'>Github page</a>.
-                    <br><br>
-                    I've also produced a full write-up of how I made this <a href = 'https://towardsdatascience.com/how-i-created-an-interactive-scrolling-visualisation-with-d3-js-and-how-you-can-too-e116372e2c73'>over at my blog</a>.
-                </p>
-                <span></span><span></span><span></span>                
-            </section>
-           
-
-        </div>
-        <div id="vis">
-
-        </div>
+		Stock markets are useful for us to learn about the economic changes. Through the history of the great recession in 2008 to the COVID-19 recession, we observed that stock markets performance helps us to study the current economy, and so that we are able to adjust to the financial crisis. Therefore, in this particular
+		the study, we will be looking at the S&P 500 for which measures the stock performance of top 500 enterprises in the United States to forecast our upcoming economy
+		performance.</p>
+      </section>
+      <section class="step">
+        <div class="title">Overview of Data</div>
+        Description of data...
+      </section>
+      <section class="step">
+        <div class="title">Before Cleaning</div>
+        We had <b>3.33%</b> missingness of data
+      </section>
+      <section class="step">
+        <div class="title">After Cleaning</div>
+		We handled null values like this...
+		[EXPLAIN HOW WE IMPUTED THE DATA]
+      </section>
+      <section class="step">
+        <div class="title">Features</div>
+        Here's a correlation heatmap of the features we extracted. We found these features most predictive...
+      </section>
+      <section class="step">
+        <div class="title">Model</div>
+        Comparison between actual and predicted prices...
+		We chose this model because...
+		(Possibly split this part into week, month, year timeframes)	
+      </section>
+      <section class="step">
+        <div class="title">Model</div>
+        Visualization of error of our prediction
+      </section>
+      <section class="step">
+        <div class="title">Hyperparameter tuning (?)</div>
+        Not sure if we'll need this section...
+      </section>
+      <section class="step">
+        <div class="title">Time frames</div>
+        Our results differed across time frames in these ways... because...
+      </section>
+      <section class="step">
+        <div class="title">Conclusion</div>
+        We learned this from the project...
+      </section>
+      <section class="step">
+        <div class="title">End</div>
+        Find us on GitHub:
+		<ul>
+			<li><a href="https://github.com/devanshuDesai">Devanshu Desai</a></li>
+			<li><a href="https://github.com/camille-004">Camille Dunning</a></li>
+			<li><a href="https://github.com/janeiii">Janet Lin</a></li>
+			<li><a href="https://github.com/yu-lily">Lily Yu</a></li>
+		</ul>
+		
+		
+		
+      </section>
     </div>
+    <div id='vis'>
+    </div>
+    <div id="extra-space">
+    </div>
+  </div>
+</div>
 
-    
 
-    
-    <script src = 'scroller.js'></script>
-    <script src = 'sections.js'></script>
-
+<script src="lib/d3.js"></script>
+<script src="js/scroller.js"></script>
+<script src="js/sections3.js"></script>
 </body>
 </html>
