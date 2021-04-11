@@ -10,7 +10,7 @@ var scrollVis = function () {
   // and margins of the vis area.
   var width = 600;
   var height = 520;
-  var margin = { top: 0, left: 20, bottom: 40, right: 10 };
+  var margin = { top:20, left: 40, bottom: 40, right: 10 };
 
   // Keep track of which visualization
   // we are on and which was the last
@@ -316,7 +316,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 //CORRELATION HEATMAP END
 
 //LINE CHART START
-			d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered_comma.csv",
+			d3.csv("data/sp500.csv",
 
 			  // When reading the csv, I must format variables:
 			  function(d){
@@ -338,12 +338,21 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 
 				// Add Y axis
 				var y = d3.scaleLinear()
-				  .domain([0, d3.max(data, function(d) { return +d.value; })])
+				  .domain([0, 2800])
 				  .range([ height, 0 ]);
 				g.append("g")
 				  .call(d3.axisLeft(y))
 				  .classed('line', true)
 				  .attr('opacity', 0);
+
+				g.append("text")
+					.attr("x", (width / 2))             
+					.attr("y", 0 - (margin.top / 2))
+					.attr("text-anchor", "middle")  
+					.classed('line', true)
+					.attr('opacity', 0)
+					.style("font-family", 'Arial,Helvetica,"san-serif"')
+					.text('S&P 500 Closing Prices');
 
 				// Add the line
 				g.append("path")
@@ -489,7 +498,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       .duration(0)
       .attr('opacity', 0);
 
-    g.selectAll('.openvis-title')
+    g.selectAll('.line')
       .transition()
       .duration(600)
       .attr('opacity', 1.0);
@@ -519,7 +528,10 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       .duration(600)
       .attr('opacity', 1.0);
 	  
-
+    g.selectAll('.line')
+      .transition()
+      .duration(600)
+      .attr('opacity', 0);
   }
 
   /**
