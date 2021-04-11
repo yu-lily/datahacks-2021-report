@@ -114,7 +114,11 @@
 }
 
 #models_pairplot {
-    margin: -150px -200px -200px -200px;
+	
+    height: auto; 
+    width: auto; 
+    max-width: 115%; 
+    max-height: auto;
 }
 
 .models {
