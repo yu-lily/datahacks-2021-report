@@ -929,6 +929,7 @@ function trend() {
 	hideLine();
 	document.getElementById('feature_selection_before').style.opacity = 0;
 	document.getElementById('feature_selection_after').style.opacity = 1;
+	document.getElementById('rfecv').style.opacity = 0;
 	
 
   }
@@ -936,6 +937,7 @@ function trend() {
   function show9() {
 	hideLine();
 	document.getElementById('feature_selection_after').style.opacity = 0;
+	document.getElementById('rfecv').style.opacity = 1;
 	
     // g.selectAll('.line2')
       // .transition()
@@ -950,6 +952,7 @@ function trend() {
   
   function show10() {
 	hideLine();
+	document.getElementById('rfecv').style.opacity = 0;
 	document.getElementById('time_series').style.opacity = 0;
 	// g.selectAll('.line2')
       // .transition()

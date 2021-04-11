@@ -77,6 +77,15 @@
 
 }
 
+#rfecv {
+	left: 25px;
+	top: 50px;
+    height: auto; 
+    width: auto; 
+    max-width: 90%; 
+    max-height: auto;
+}
+
 #time_series {
     height: auto; 
     width: auto; 
