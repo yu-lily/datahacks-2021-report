@@ -20,49 +20,95 @@
       </section>
       <section class="step">
         <div class="title">Overview of Data</div>
-        Description of data...
+        <p>The data comprises 67 financial indicators of the health of the United States economy spanning from the year 2000 to 2020.
+		The indicators measure everything from infectious disease risk to foreign exchange state and unemployment rate. We categorize the 67 features into primarily three categories:</p>
+		<ol>
+			<li><b>External Macro Relationships:</b> This group of time series data all share similar characteristics as they are updated every business day.
+			They require minimal data preprocessing techniques. This group includes: multiple commodity futures, major foreign exchange pairs, different treasury related data in order to include the daily macro effects around the world.</li>
+			<li><b>Internal Interactive Effects:</b> This group of data represents the internal interactive effects within the U.S. equity market. This includes indices to measure the “mood” of the market participants.
+			ETFs/market trackers that represent different industries are included with a goal to include the effect of different business cycles.</li>
+			<li><b>Low-Frequency Fundamental Data:</b> The previous two groups allow the models to have an idea of what is happening on a daily basis due to the high frequency of the data.
+			However, in order to measure the financial market, it is also important to look at the lower frequency economic and fundamental data.
+			This group includes lower frequency data that are released on a monthly/quarterly basis, hence data preprocessing techniques such as forward fill or interpolation will be needed. The economic indices are chosen in order to cover the different areas such as growth, inflation, employment, income and expenditure, and debt.</li>
+		</ol>
       </section>
       <section class="step">
-        <div class="title">Before Cleaning</div>
+        <div class="title">Data Cleaning / Preprocessing</div>
         We had <b>3.33%</b> missingness of data
       </section>
       <section class="step">
-        <div class="title">After Cleaning</div>
+        <div class="title">Missing Data Imputation</div>
 		We handled null values like this...
 		[EXPLAIN HOW WE IMPUTED THE DATA]
       </section>
       <section class="step">
-        <div class="title">Feature Selection Pt.1</div>
+        <div class="title">Removing Seasonality: Curve Fitting</div>
         Here's a correlation heatmap of the features we extracted. We found these features most predictive...
       </section>
       <section class="step">
-        <div class="title">Feature Selection Pt.2</div>
+        <div class="title">Removing Trend</div>
+        Here's a correlation heatmap of the features we extracted. We found these features most predictive...
+      </section>  
+      <section class="step">
+        <div class="title">Removing Columns With Missing Data</div>
         Here's a correlation heatmap of the features we extracted. We found these features most predictive...
       </section>
       <section class="step">
-        <div class="title">Model</div>
+        <div class="title">Univariate Feature Selection</div>
         Comparison between actual and predicted prices...
 		We chose this model because...
 		(Possibly split this part into week, month, year timeframes)	
       </section>
       <section class="step">
-        <div class="title">Model Pt.2</div>
+        <div class="title">Correlation-Based Feature Selection - Before</div>
 		We chose this model because...
       </section>
       <section class="step">
-        <div class="title">Model Pt.3</div>
+        <div class="title">Correlation-Based Feature Selection - After</div>
 		We chose this model because...
       </section>
       <section class="step">
-        <div class="title">Model</div>
+        <div class="title">Recursive Feature Elimination and Cross-Validation</div>
         Visualization of error of our prediction
       </section>
       <section class="step">
-        <div class="title">Hyperparameter tuning (?)</div>
+        <div class="title">Dimensionality Reduction - PCA</div>
         Not sure if we'll need this section...
       </section>
       <section class="step">
-        <div class="title">Time frames</div>
+        <div class="title">Visualizations - Time Series Plots</div>
+        Not sure if we'll need this section...
+      </section>
+      <section class="step">
+        <div class="title">Visualizations - Missingness</div>
+        Not sure if we'll need this section...
+      </section>
+      <section class="step">
+        <div class="title">Visualizations - Seasonality</div>
+        Not sure if we'll need this section...
+      </section>
+      <section class="step">
+        <div class="title">Visualizations - Trend</div>
+        Not sure if we'll need this section...
+      </section>
+      <section class="step">
+        <div class="title">Analysis and Modeling</div>
+        Not sure if we'll need this section...
+      </section>
+      <section class="step">
+        <div class="title">Vanilla LSTM Architecture</div>
+        Not sure if we'll need this section...
+	  </section>
+      <section class="step">
+        <div class="title">LSTM Encoder-Decoder Architecture</div>
+        Not sure if we'll need this section...
+      </section>
+      <section class="step">
+        <div class="title">ConvLSTM Architecture</div>
+        Not sure if we'll need this section...
+      </section>
+      <section class="step">
+        <div class="title">Takeaways</div>
         Our results differed across time frames in these ways... because...
       </section>
       <section class="step">
@@ -85,8 +131,16 @@
     </div>
 		
     <div id='vis'>
-		<img src="data/missingness_hm_inverted_edited.png", id='missingness'>
+		<img src="data/data.png", id='data_overview'>
+		<img src="data/imputation.png", id='imputation'>
+		<img src="data/seasonality1.png", id='seasonality1'>
+		<img src="data/seasonality2.png", id='seasonality2'>
 		<img src="data/mutual_info.png", id='mutual_info'>
+		<img src="data/feature_selection_before.png", id='feature_selection_before'>
+		<img src="data/feature_selection_after.png", id='feature_selection_after'>
+		<img src="data/time_series.png", id='time_series'>
+		
+		<img src="data/missingness_hm_inverted_edited.png", id='missingness'>
 		<img src="data/models1.png", id='models1', class='models'>
 		<img src="data/models2.png", id='models2', class='models'>
 		<img src="data/models3.png", id='models3', class='models'>

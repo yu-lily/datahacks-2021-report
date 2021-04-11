@@ -77,6 +77,35 @@
 
 }
 
+#time_series {
+    height: auto; 
+    width: auto; 
+    max-width: 115%; 
+    max-height: auto;
+}
+
+#data_overview {
+    height: auto; 
+    width: auto; 
+    max-width: 115%; 
+    max-height: auto;
+}
+
+#seasonality1 {
+    height: auto; 
+    width: auto; 
+    max-width: 115%; 
+    max-height: auto;
+}
+
+#seasonality2 {
+	top: 350px;
+    height: auto; 
+    width: auto; 
+    max-width: 115%; 
+    max-height: auto;
+}
+
 #models_pairplot {
     margin: -150px -200px -200px -200px;
 }

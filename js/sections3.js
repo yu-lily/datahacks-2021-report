@@ -540,12 +540,23 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
     activateFunctions[2] = show2;
     activateFunctions[3] = show3;
     activateFunctions[4] = show4;
-    activateFunctions[5] = show5;
-    activateFunctions[6] = show6;
-    activateFunctions[7] = show7;
-    activateFunctions[8] = show8;
-	activateFunctions[9] = show9;
-	activateFunctions[10] = show10;
+	activateFunctions[5] = trend;
+    activateFunctions[6] = show5;
+    activateFunctions[7] = show6;
+    activateFunctions[8] = show7;
+    activateFunctions[9] = show8;
+	activateFunctions[10] = show9;
+	activateFunctions[11] = show10;
+	activateFunctions[12] = show11;
+	activateFunctions[13] = show12;
+	activateFunctions[14] = show13;
+	activateFunctions[15] = show14;
+	activateFunctions[16] = show15;
+	activateFunctions[17] = show16;
+	activateFunctions[18] = show17;
+	activateFunctions[19] = show18;
+	activateFunctions[20] = show19;
+	
 
     // updateFunctions are called while
     // in a particular section to update
@@ -553,10 +564,10 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
     // Most sections do not need to be updated
     // for all scrolling and so are set to
     // no-op functions.
-    for (var i = 0; i < 11; i++) {
+    for (var i = 0; i < 21; i++) {
       updateFunctions[i] = function () {};
     }
-    updateFunctions[7] = updateCough;
+    //updateFunctions[7] = updateCough;
   };
 
   /**
@@ -615,7 +626,8 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       // .duration(500)
       // .attr('opacity', 0);
 	  
-	document.getElementById('missingness').style.opacity = 0;
+	//document.getElementById('missingness').style.opacity = 0;
+	document.getElementById('data_overview').style.opacity = 0;
   }
 
   /**
@@ -627,20 +639,20 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    *
    */
   function show1() {
-    g.selectAll('.openvis-title')
-      .transition()
-      .duration(0)
-      .attr('opacity', 0);
+    // g.selectAll('.openvis-title')
+      // .transition()
+      // .duration(0)
+      // .attr('opacity', 0);
 
-    g.selectAll('.square')
-      .transition()
-      .duration(0)
-      .attr('opacity', 0);
+    // g.selectAll('.square')
+      // .transition()
+      // .duration(0)
+      // .attr('opacity', 0);
 
-    g.selectAll('.count-title')
-      .transition()
-      .duration(600)
-      .attr('opacity', 1.0);
+    // g.selectAll('.count-title')
+      // .transition()
+      // .duration(600)
+      // .attr('opacity', 1.0);
 	  
     g.selectAll('.line')
       .transition()
@@ -656,8 +668,8 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       // .duration(1000)
       // .attr('opacity', 1);
 	  
-	document.getElementById('missingness').classList.add('fadein');
-	document.getElementById('missingness').style.opacity = 1;
+	document.getElementById('data_overview').style.opacity = 1;
+	//document.getElementById('missingness').style.opacity = 1;
   }
 
   /**
@@ -669,19 +681,19 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    *
    */
   function show2() {
-    g.selectAll('.count-title')
-      .transition()
-      .duration(0)
-      .attr('opacity', 0);
+    // g.selectAll('.count-title')
+      // .transition()
+      // .duration(0)
+      // .attr('opacity', 0);
 
-    g.selectAll('.square')
-      .transition()
-      .duration(600)
-      .delay(function (d) {
-        return 5 * d.row;
-      })
-      .attr('opacity', 1.0)
-      .attr('fill', '#ddd');
+    // g.selectAll('.square')
+      // .transition()
+      // .duration(600)
+      // .delay(function (d) {
+        // return 5 * d.row;
+      // })
+      // .attr('opacity', 1.0)
+      // .attr('fill', '#ddd');
     // g.selectAll('.fill-square')
       // .transition('move-fills')
       // .duration(800)
@@ -692,18 +704,20 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
         // return d.y;
       // });
 
-    g.selectAll('.fill-square')
-      .transition()
-      .duration(800)
-      .attr('opacity', 1.0)
-      .attr('fill', function (d) { return d.filler ? '#008080' : '#ddd'; });
+    // g.selectAll('.fill-square')
+      // .transition()
+      // .duration(800)
+      // .attr('opacity', 1.0)
+      // .attr('fill', function (d) { return d.filler ? '#008080' : '#ddd'; });
 	  
     // g.selectAll('.missingness')
       // .transition()
       // .duration(500)
       // .attr('opacity', 0);
 	  
-	document.getElementById('missingness').style.opacity = 0;
+	document.getElementById('data_overview').style.opacity = 1;
+	document.getElementById('imputation').style.opacity = 0;
+	//document.getElementById('missingness').style.opacity = 0;
   }
 
   /**
@@ -726,19 +740,22 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       // .duration(0)
       // .attr('opacity', 0);
 
-    g.selectAll('.fill-square')
-      .transition()
-      .duration(800)
-      .attr('opacity', 1.0)
-      .attr('fill', '#ddd');
+    // g.selectAll('.fill-square')
+      // .transition()
+      // .duration(800)
+      // .attr('opacity', 1.0)
+      // .attr('fill', '#ddd');
 
-    g.selectAll('.square')
-      .transition()
-      .duration(800)
-      .attr('opacity', 1.0)
-      .attr('fill', '#ddd');
-	  
-	document.getElementById('mutual_info').style.opacity = 0;
+    // g.selectAll('.square')
+      // .transition()
+      // .duration(800)
+      // .attr('opacity', 1.0)
+      // .attr('fill', '#ddd');
+	
+	document.getElementById('data_overview').style.opacity = 0;
+	document.getElementById('imputation').style.opacity = 1;
+	document.getElementById('seasonality1').style.opacity = 0;
+	document.getElementById('seasonality2').style.opacity = 0;
   }
 
   /**
@@ -752,11 +769,11 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
   function show4() {
     // ensure bar axis is set
     //showAxis(xAxisBar);
-	hideAxis();
-    g.selectAll('.square')
-      .transition()
-      .duration(800)
-      .attr('opacity', 0);
+	// hideAxis();
+    // g.selectAll('.square')
+      // .transition()
+      // .duration(800)
+      // .attr('opacity', 0);
 
 
 
@@ -778,15 +795,20 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       // .duration(600)
       // .delay(1200)
       // .attr('opacity', 1);
-	document.getElementById('mutual_info').style.opacity = 1;
-
-    g.selectAll('.cor')
-      .transition()
-      .duration(0)
-      .attr('opacity', 0);
-
+	
+	document.getElementById('imputation').style.opacity = 0;
+	document.getElementById('seasonality1').style.opacity = 1;
+	document.getElementById('seasonality2').style.opacity = 1;
+    // g.selectAll('.cor')
+      // .transition()
+      // .duration(0)
+      // .attr('opacity', 0);
   }
 
+function trend() {
+	document.getElementById('seasonality1').style.opacity = 0;
+	document.getElementById('seasonality2').style.opacity = 0;
+}
   /**
    * showHistPart - shows the first part
    *  of the histogram of filler words
@@ -818,12 +840,15 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       // .attr('y', function (d) { return (d.x0 < 15) ? yHistScale(d.length) : height; })
       // .attr('height', function (d) { return (d.x0 < 15) ? height - yHistScale(d.length) : 0; })
       // .style('opacity', function (d) { return (d.x0 < 15) ? 1.0 : 1e-6; });
+
+	
+	
 	document.getElementById('mutual_info').style.opacity = 0;
-	document.getElementById('models1').style.opacity = 0;
-	g.selectAll('.cor')
-      .transition()
-      .duration(600)
-      .attr('opacity', 1);
+	
+	// g.selectAll('.cor')
+      // .transition()
+      // .duration(600)
+      // .attr('opacity', 1);
   }
 
   /**
@@ -858,12 +883,12 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       // .attr('y', function (d) { return yHistScale(d.length); })
       // .attr('height', function (d) { return height - yHistScale(d.length); })
       // .style('opacity', 1.0);
-	document.getElementById('models1').style.opacity = 1;
-	document.getElementById('models2').style.opacity = 0;
-    g.selectAll('.cor')
-      .transition()
-      .duration(0)
-      .attr('opacity', 0);
+	document.getElementById('mutual_info').style.opacity = 1;
+	document.getElementById('feature_selection_before').style.opacity = 0;
+    // g.selectAll('.cor')
+      // .transition()
+      // .duration(0)
+      // .attr('opacity', 0);
   }
 
   /**
@@ -876,9 +901,9 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    *
    */
   function show7() {
-	document.getElementById('models1').style.opacity = 0;  
-	document.getElementById('models2').style.opacity = 1;
-	document.getElementById('models3').style.opacity = 0;
+	document.getElementById('mutual_info').style.opacity = 0;  
+	document.getElementById('feature_selection_before').style.opacity = 1;
+	document.getElementById('feature_selection_after').style.opacity = 0;
     // // ensure the axis to histogram one
     // showAxis(xAxisHist);
 
@@ -891,49 +916,95 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
   }
 
   function show8() {
-	document.getElementById('models2').style.opacity = 0;
-	document.getElementById('models3').style.opacity = 1;
-	document.getElementById('models_pairplot').style.opacity = 0;
+	document.getElementById('feature_selection_before').style.opacity = 0;
+	document.getElementById('feature_selection_after').style.opacity = 1;
+	
 
   }
 
   function show9() {
-	document.getElementById('models3').style.opacity = 0;
-	document.getElementById('models_pairplot').style.opacity = 1;
-    g.selectAll('.line2')
-      .transition()
-      .duration(600)
-      .attr('opacity', 0);
+	document.getElementById('feature_selection_after').style.opacity = 0;
 	
-    g.selectAll('.line2-main')
-      .transition()
-      .duration(0)
-      .attr('opacity', 0);
+    // g.selectAll('.line2')
+      // .transition()
+      // .duration(600)
+      // .attr('opacity', 0);
+	
+    // g.selectAll('.line2-main')
+      // .transition()
+      // .duration(0)
+      // .attr('opacity', 0);
   }
   
   function show10() {
-	document.getElementById('models_pairplot').style.opacity = 0;
-	g.selectAll('.line2')
-      .transition()
-      .duration(600)
-      .attr('opacity', 1.0);
+	document.getElementById('time_series').style.opacity = 0;
+	// g.selectAll('.line2')
+      // .transition()
+      // .duration(600)
+      // .attr('opacity', 1.0);
 	  
-    function transition(path) {
-        path.transition()
-            .duration(1000)
-            .attrTween("stroke-dasharray", tweenDash);
-    }
-    function tweenDash() {
-        var l = this.getTotalLength(),
-            i = d3.interpolateString("0," + l, l + "," + l);
-        return function (t) { return i(t); };
-    }
+    // function transition(path) {
+        // path.transition()
+            // .duration(1000)
+            // .attrTween("stroke-dasharray", tweenDash);
+    // }
+    // function tweenDash() {
+        // var l = this.getTotalLength(),
+            // i = d3.interpolateString("0," + l, l + "," + l);
+        // return function (t) { return i(t); };
+    // }
 	
-    g.selectAll('.line2-main')
-      .transition()
-      .duration(0)
-      .attr('opacity', 1)
-	  .call(transition);
+    // g.selectAll('.line2-main')
+      // .transition()
+      // .duration(0)
+      // .attr('opacity', 1)
+	  // .call(transition);
+  }
+
+  function show11() {
+	  document.getElementById('time_series').style.opacity = 1;
+	  document.getElementById('missingness').style.opacity = 0;
+  }
+  
+  function show12() {
+	  document.getElementById('time_series').style.opacity = 0;
+	  document.getElementById('missingness').style.opacity = 1;
+  }
+  
+  function show13() {
+	  document.getElementById('missingness').style.opacity = 0;
+  }
+  
+  function show14() {
+  }
+  
+  function show15() {
+	  document.getElementById('models1').style.opacity = 0;
+  }
+  
+  function show16() {
+	  document.getElementById('models1').style.opacity = 1;
+	  document.getElementById('models2').style.opacity = 0;
+  }
+  
+  function show17() {
+	  document.getElementById('models1').style.opacity = 0;
+	  document.getElementById('models2').style.opacity = 1;
+	  document.getElementById('models3').style.opacity = 0;
+  }
+  
+  function show18() {
+	  document.getElementById('models2').style.opacity = 0;
+	  document.getElementById('models3').style.opacity = 1;
+  }
+  
+  function show19() {
+	  document.getElementById('models3').style.opacity = 0;
+	  document.getElementById('models_pairplot').style.opacity = 1;
+  }
+  
+  function show20() {
+	  document.getElementById('models_pairplot').style.opacity = 1;
   }
 
   /**
