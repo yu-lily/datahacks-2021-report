@@ -17,7 +17,7 @@
 		We are living in an environment that is tremendously impacted by economics. Our lifestyles, decisions we make, and the future that we are hoping to create are involved in the current economy. However, we would never know when the next economic crisis would hit us but what we can do is to forecast the future
 		economy by utilizing the current and the past data that we have to prepare ourselves for the crisis so that we could avert the crisis.
 
-		Stock markets are useful for us to learn about the economic changes. Through the history of the great recession in 2008 to the COVID-19 recession, we observed that stock markets performance helps us to study the current economy, and so that we are able to adjust to the financial crisis. Therefore, in this particular
+		Stock markets are useful for us to learn about economic changes. Through the history of the great recession in 2008 to the COVID-19 recession, we observed that stock market performance helps us to study the current economy, and so that we are able to adjust to the financial crisis. Therefore, in this particular
 		the study, we will be looking at the S&P 500 for which measures the stock performance of top 500 enterprises in the United States to forecast our upcoming economy performance.</p>
       </section>
       <section class="step">
@@ -92,7 +92,11 @@
       <section class="step">
         <div class="title">Dimensionality Reduction - PCA</div>
         <p>After getting the best subset of features with RFECV, PCA will be applied to further reduce the dimension of our selected features. To preserve the most amount of information, we keep the number of components that can explain at least 99% of the total variance.
-		We explored other techniques like TSNE here, but didn’t see any significant differences in model performance suggesting that PCA does a good enough job of learning model representations.</p>
+		Without RFECV, we found that the top 208 components explained over 99% of the variance. With RFECV, this number would vary based on what classifier we performed RFECV on. Usually we’d find a value close to 10 features with RFECV.</p>
+		<p>We explored other techniques like T-SNE here, but didn’t see any significant differences in model performance suggesting that PCA does a good enough job of learning model representations.</p>
+		<p>Next, we plot the top 5 principal components with respect to how much variance in S&P 500 value they explain. It appears that the top 5 components explain almost 20% of the variance.</p>
+		<p>The top two components after running PCA are visualized here. The color bar is the value of the principal component. We can observe a well-defined segregation between the S & P 500 values with the lighter values and darker values clustered together.
+		A “red day” in the stock market appears to be indicated by high values of the features captured by Component 1, and a “green day” appears to be indicated by low-middle values of Component 1 and Component 2.</p>
       </section>
       <section class="step">
         <div class="title">Visualizations - Time Series Plots</div>
@@ -207,6 +211,9 @@
 		<img src="data/feature_selection_before.png", id='feature_selection_before'>
 		<img src="data/feature_selection_after.png", id='feature_selection_after'>
 		<img src="data/rfecv.png", id='rfecv'>
+		
+		<img src="data/pca1.png", id='pca1'>
+		<img src="data/pca2.png", id='pca2'>
 		
 		<img src="data/time_series.png", id='time_series'>
 		

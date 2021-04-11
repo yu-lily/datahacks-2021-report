@@ -345,7 +345,10 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 				  .call(d3.axisBottom(x))
 				  .classed('line', true)
 				  .attr('opacity', 1);
-
+				  
+				  //To find max
+				  //d3.max(data, function(d) { return d.value; }) *1.1
+				  
 				// Add Y axis
 				var y = d3.scaleLinear()
 				  .domain([0, 2800])
@@ -938,7 +941,8 @@ function trend() {
 	hideLine();
 	document.getElementById('feature_selection_after').style.opacity = 0;
 	document.getElementById('rfecv').style.opacity = 1;
-	
+	document.getElementById('pca1').style.opacity = 0;
+	document.getElementById('pca2').style.opacity = 0;
     // g.selectAll('.line2')
       // .transition()
       // .duration(600)
@@ -953,6 +957,8 @@ function trend() {
   function show10() {
 	hideLine();
 	document.getElementById('rfecv').style.opacity = 0;
+	document.getElementById('pca1').style.opacity = 1;
+	document.getElementById('pca2').style.opacity = 1;
 	document.getElementById('time_series').style.opacity = 0;
 	// g.selectAll('.line2')
       // .transition()
@@ -979,6 +985,8 @@ function trend() {
 
   function show11() {
 	  hideLine();
+	document.getElementById('pca1').style.opacity = 0;
+	document.getElementById('pca2').style.opacity = 0;
 	  document.getElementById('time_series').style.opacity = 1;
 	  document.getElementById('missingness').style.opacity = 0;
   }

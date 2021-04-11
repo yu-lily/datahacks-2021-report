@@ -77,6 +77,21 @@
 
 }
 
+#pca1 {
+    height: auto; 
+    width: auto; 
+    max-width: 80%; 
+    max-height: auto;
+}
+
+#pca2 {
+	top:400px;
+    height: auto; 
+    width: auto; 
+    max-width: 80%; 
+    max-height: auto;
+}
+
 #rfecv {
 	left: 25px;
 	top: 50px;
