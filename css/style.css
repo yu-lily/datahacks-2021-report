@@ -85,10 +85,15 @@
 }
 
 #data_overview {
+	left: 25px;
     height: auto; 
     width: auto; 
     max-width: 115%; 
     max-height: auto;
+}
+
+#imputation{
+	left: 75px;
 }
 
 #trend {
@@ -99,6 +104,7 @@
 }
 
 #seasonality1 {
+	left: 25px;
     height: auto; 
     width: auto; 
     max-width: 115%; 
@@ -106,6 +112,7 @@
 }
 
 #seasonality2 {
+	left: 25px;
 	top: 350px;
     height: auto; 
     width: auto; 

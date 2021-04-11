@@ -125,7 +125,7 @@
       </section>
       <section class="step">
         <div class="title">Visualizations - Trend</div>
-        <p>Trend is another part of a classical time series decomposition. It refers to a continuous increase or decrease over time. We test for the presence of trends in our data with a linear regression model, and we observe trend if the resulting R2 value is greater than or equal to 0.75. We find a handful of features that exhibit trends, examples of which are displayed below.
+        <p>Trend is another part of a classical time series decomposition. It refers to a continuous increase or decrease over time. We test for the presence of trends in our data with a linear regression model, and we observe trend if the resulting <em>R<sup>2</sup></em> value is greater than or equal to 0.75. We find a handful of features that exhibit trends, examples of which are displayed below.
 		The blue trends are the trends we extracted from the seasonal decomposition of our original signals.</p>
 		<p>We use these results combined with differencing to detrend our signals (see Data Cleaning and Preprocessing), a process we hypothesize will improve the performance of our subsequent forecasting models.</p>
       </section>
@@ -195,8 +195,8 @@
 		
 		<img src="data/missingness_hm_inverted_edited.png", id='missingness'>
 		
-		<img src="data/seasonality_vis", id='seasonality_vis'>
-		<img src="data/trend_vis", id='trend_vis'>
+		<img src="data/seasonality_vis.png", id='seasonality_vis'>
+		<img src="data/trend_vis.png", id='trend_vis'>
 		
 		
 		<img src="data/models1.png", id='models1', class='models'>

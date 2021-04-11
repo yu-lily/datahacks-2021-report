@@ -585,6 +585,17 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    *
    */
 
+	function hideLine(){
+		g.selectAll('.line')
+		  .transition()
+		  .duration(500)
+		  .attr('opacity', 0);
+		g.selectAll('.line-main')
+		  .transition()
+		  .duration(500)
+		  .attr('opacity', 0);
+	}
+
   /**
    * showTitle - initial title
    *
@@ -654,15 +665,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       // .duration(600)
       // .attr('opacity', 1.0);
 	  
-    g.selectAll('.line')
-      .transition()
-      .duration(500)
-      .attr('opacity', 0);
-    g.selectAll('.line-main')
-      .transition()
-      .duration(500)
-      .attr('opacity', 0);
-	  
+	hideLine();
     // g.selectAll('.missingness')
       // .transition()
       // .duration(1000)
@@ -714,7 +717,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       // .transition()
       // .duration(500)
       // .attr('opacity', 0);
-	  
+	hideLine();
 	document.getElementById('data_overview').style.opacity = 1;
 	document.getElementById('imputation').style.opacity = 0;
 	//document.getElementById('missingness').style.opacity = 0;
@@ -751,7 +754,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       // .duration(800)
       // .attr('opacity', 1.0)
       // .attr('fill', '#ddd');
-	
+	hideLine();
 	document.getElementById('data_overview').style.opacity = 0;
 	document.getElementById('imputation').style.opacity = 1;
 	document.getElementById('seasonality1').style.opacity = 0;
@@ -795,7 +798,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       // .duration(600)
       // .delay(1200)
       // .attr('opacity', 1);
-	
+	hideLine();
 	document.getElementById('imputation').style.opacity = 0;
 	document.getElementById('seasonality1').style.opacity = 1;
 	document.getElementById('seasonality2').style.opacity = 1;
@@ -843,7 +846,7 @@ function trend() {
       // .attr('height', function (d) { return (d.x0 < 15) ? height - yHistScale(d.length) : 0; })
       // .style('opacity', function (d) { return (d.x0 < 15) ? 1.0 : 1e-6; });
 
-	
+	hideLine();
 	document.getElementById('trend').style.opacity = 0;
 	document.getElementById('mutual_info').style.opacity = 0;
 	
@@ -885,6 +888,7 @@ function trend() {
       // .attr('y', function (d) { return yHistScale(d.length); })
       // .attr('height', function (d) { return height - yHistScale(d.length); })
       // .style('opacity', 1.0);
+	hideLine();
 	document.getElementById('mutual_info').style.opacity = 1;
 	document.getElementById('feature_selection_before').style.opacity = 0;
     // g.selectAll('.cor')
@@ -903,6 +907,7 @@ function trend() {
    *
    */
   function show7() {
+	hideLine();
 	document.getElementById('mutual_info').style.opacity = 0;  
 	document.getElementById('feature_selection_before').style.opacity = 1;
 	document.getElementById('feature_selection_after').style.opacity = 0;
@@ -918,6 +923,7 @@ function trend() {
   }
 
   function show8() {
+	hideLine();
 	document.getElementById('feature_selection_before').style.opacity = 0;
 	document.getElementById('feature_selection_after').style.opacity = 1;
 	
@@ -925,6 +931,7 @@ function trend() {
   }
 
   function show9() {
+	hideLine();
 	document.getElementById('feature_selection_after').style.opacity = 0;
 	
     // g.selectAll('.line2')
@@ -939,6 +946,7 @@ function trend() {
   }
   
   function show10() {
+	hideLine();
 	document.getElementById('time_series').style.opacity = 0;
 	// g.selectAll('.line2')
       // .transition()
@@ -964,52 +972,65 @@ function trend() {
   }
 
   function show11() {
+	  hideLine();
 	  document.getElementById('time_series').style.opacity = 1;
 	  document.getElementById('missingness').style.opacity = 0;
   }
   
   function show12() {
+	  hideLine();
 	  document.getElementById('time_series').style.opacity = 0;
 	  document.getElementById('missingness').style.opacity = 1;
 	  document.getElementById('seasonality_vis').style.opacity = 0;
   }
   
   function show13() {
+	  hideLine();
 	  document.getElementById('missingness').style.opacity = 0;
 	  document.getElementById('seasonality_vis').style.opacity = 1;
+	  document.getElementById('trend_vis').style.opacity = 0;
   }
   
   function show14() {
+	  hideLine();
 	  document.getElementById('seasonality_vis').style.opacity = 0;
+	  document.getElementById('trend_vis').style.opacity = 1;
   }
   
   function show15() {
+	  hideLine();
+	  document.getElementById('trend_vis').style.opacity = 0;
 	  document.getElementById('models1').style.opacity = 0;
   }
   
   function show16() {
+	  hideLine();
 	  document.getElementById('models1').style.opacity = 1;
 	  document.getElementById('models2').style.opacity = 0;
   }
   
   function show17() {
+	  hideLine();
 	  document.getElementById('models1').style.opacity = 0;
 	  document.getElementById('models2').style.opacity = 1;
 	  document.getElementById('models3').style.opacity = 0;
   }
   
   function show18() {
+	  hideLine();
 	  document.getElementById('models2').style.opacity = 0;
 	  document.getElementById('models3').style.opacity = 1;
 	  document.getElementById('models_pairplot').style.opacity = 0;
   }
   
   function show19() {
+	  hideLine();
 	  document.getElementById('models3').style.opacity = 0;
 	  document.getElementById('models_pairplot').style.opacity = 1;
   }
   
   function show20() {
+	  hideLine();
 	  document.getElementById('models_pairplot').style.opacity = 1;
   }
 
