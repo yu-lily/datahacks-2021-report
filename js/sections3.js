@@ -608,11 +608,12 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       .attr('opacity', 1)
 	  .call(transition);
 
-    g.selectAll('.missingness')
-      .transition()
-      .duration(500)
-      .attr('opacity', 0);
-
+    // g.selectAll('.missingness')
+      // .transition()
+      // .duration(500)
+      // .attr('opacity', 0);
+	  
+	document.getElementById('missingness').style.opacity = 0;
   }
 
   /**
@@ -648,10 +649,13 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       .duration(500)
       .attr('opacity', 0);
 	  
-    g.selectAll('.missingness')
-      .transition()
-      .duration(1000)
-      .attr('opacity', 1);
+    // g.selectAll('.missingness')
+      // .transition()
+      // .duration(1000)
+      // .attr('opacity', 1);
+	  
+	document.getElementById('missingness').classList.add('fadein');
+	document.getElementById('missingness').style.opacity = 1;
   }
 
   /**
@@ -692,10 +696,12 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       .attr('opacity', 1.0)
       .attr('fill', function (d) { return d.filler ? '#008080' : '#ddd'; });
 	  
-    g.selectAll('.missingness')
-      .transition()
-      .duration(500)
-      .attr('opacity', 0);
+    // g.selectAll('.missingness')
+      // .transition()
+      // .duration(500)
+      // .attr('opacity', 0);
+	  
+	document.getElementById('missingness').style.opacity = 0;
   }
 
   /**
