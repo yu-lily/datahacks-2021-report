@@ -364,14 +364,13 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 					.x(function(d) { return x(d.date) })
 					.y(function(d) { return y(d.value) })
 					)
-				  .classed('line', true)
 				  .classed('line-main', true)
 				  .attr('opacity', 1)
 				  .call(transition);
 				  
     function transition(path) {
         path.transition()
-            .duration(2000)
+            .duration(1000)
             .attrTween("stroke-dasharray", tweenDash);
     }
     function tweenDash() {
@@ -515,6 +514,24 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       .transition()
       .duration(600)
       .attr('opacity', 1.0);
+	  
+    function transition(path) {
+        path.transition()
+            .duration(1000)
+            .attrTween("stroke-dasharray", tweenDash);
+    }
+    function tweenDash() {
+        var l = this.getTotalLength(),
+            i = d3.interpolateString("0," + l, l + "," + l);
+        return function (t) { return i(t); };
+    }
+	
+    g.selectAll('.line-main')
+      .transition()
+      .duration(0)
+      .attr('opacity', 1)
+	  .call(transition);
+
   }
 
   /**
@@ -543,7 +560,11 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 	  
     g.selectAll('.line')
       .transition()
-      .duration(600)
+      .duration(1000)
+      .attr('opacity', 0);
+    g.selectAll('.line-main')
+      .transition()
+      .duration(2000)
       .attr('opacity', 0);
   }
 
