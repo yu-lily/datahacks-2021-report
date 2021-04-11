@@ -13,12 +13,11 @@
         <div class="title"><h1><b>Evaluating the Long-Term Memory Approach to Modeling Stock Data</b></h1></div>
 		<div class="title">Datahacks 2021 - <a href="https://github.com/devanshuDesai">Devanshu Desai</a>, <a href="https://github.com/camille-004">Camille Dunning</a>, <a href="https://github.com/janeiii">Janet Lin</a>, <a href="https://github.com/yu-lily">Lily Yu</a></div>
 		<br>
-		<p>
-		We are living in an environment that is tremendously impacted by economics. Our lifestyles, decisions we make, and the future that we are hoping to create are involved in the current economy. However, we would never know when the next economic crisis would hit us but what we can do is to forecast the future
-		economy by utilizing the current and the past data that we have to prepare ourselves for the crisis so that we could avert the crisis.
-
-		Stock markets are useful for us to learn about economic changes. Through the history of the great recession in 2008 to the COVID-19 recession, we observed that stock market performance helps us to study the current economy, and so that we are able to adjust to the financial crisis. Therefore, in this particular
-		the study, we will be looking at the S&P 500 for which measures the stock performance of top 500 enterprises in the United States to forecast our upcoming economy performance.</p>
+		<p>The S&P 500 index is one of the most commonly used measures of the performance of the US equities market.
+		It is a capitalization-weighted index which measures the stock performance of the top 500 enterprises in the United States. Successful predictive models of this and other market indexes have clear, obvious real world benefits, showing investors where and when to invest their money.
+		In this report, we document our attempts to predict the S&P 500 using data from other financial indicators (provided by Vulcan Value Partners) and features we extract from these datasets.</p>
+		
+		<p>Upon interpolation and dimensionality reduction, we adopt various recurrent neural network (RNN)-based models for fitting and generating adequate forecasts across the following time frames: 1 week, 1 month, and 1 year. </p>
       </section>
       <section class="step">
         <div class="title">Overview of Data</div>
@@ -180,11 +179,34 @@
       </section>
       <section class="step">
         <div class="title">Proposal and Experimental Testing</div>
-        <p>Words here.</p>
+        <p>We break down our model proposal as follows:<br><br>
+		
+		<em><b>Model suggestion:</b></em> We propose a neural-network based approach for multivariate forecasting on the grounds that the data are complex, and LSTM networks perform empirically well on sequential data.
+		To test our models’ abilities with forecasting, we were supplied three different dates in the testing dataset, each predicted signal of which must include the following ranges: one week, one month, and one year.</p>
+		
+		<ul>
+			<li>LSTM Vanilla LSTM (One week, one month, one year)
+				<ul>
+				<li><em>Reasoning behind our model:</em> This model allows a strong resemblance to an autoencoder and similar to an autoencoder it attempts to learn good internal representations of the data generating process.</li>
+				</ul>
+			</li>
+			<li>ConvLSTM LSTM (One month)
+				<ul>
+				<li><em>Reasoning behind our model:</em> This method combines a convolution layer with an LSTM cell, and allows the model to learn to look at both shorter time horizons and longer time horizons simultaneously.</li>
+				</ul>
+			</li>
+		</ul>
       </section>
       <section class="step">
         <div class="title"><h3>Conclusion</h3></div>
-        <p>Words here.</p>
+        <p>Our goal for this study is to find and optimize sequential forecasting models to generate predictions across three different time frames: one week, one month, and one year.
+		We started by cleaning the data, standardizing and categorizing the data in a total of 67 features into three categories, External Macro Relationships, Internal Interactive Effects, and Low-Frequency Fundamental Data.
+		To impute the missing values in our dataset, we calculated the R-squared values on our validation set combining the techniques of Interpolate using length of interval (time), Forward/Backward Fill, Rolling Statistics (Mean/Median) to produce a best-fit linear correlation with the target variable.
+		In addition, we obtained a more precise dataset from the added features by adopting the polynomial fitting method to remove seasonality from the features, and a combination of linear regression and differencing to remove trend.</p>
+		<p>Followed by that, we tested the dataset on Vanilla LSTM Architecture, LSTM Encoder- Decoder Architecture, and ConvLSTM Architecture to generate the best fit deep learning model for forecasting the dataset.
+		We have found that all three models performed higher than expected. We observed the RNN-based modeling performed the best optimization for the training sets as it has a strong memorizing behavior to the fed in sequential data.
+		However, these models were not able to generalize well to other data points. We also prove that a high model complexity does not necessarily yield better predictions, perhaps optimizing some hyperparameters, such as the batch size,
+		learning rate, number of LSTM cells, and adding dropout.</p>
       </section>
       <section class="step">
         <div class="title">Thank you!</div>
