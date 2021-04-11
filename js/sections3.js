@@ -864,27 +864,27 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    *
    */
   function show6() {
-    // ensure the axis to histogram one
-    showAxis(xAxisHist);
+    // // ensure the axis to histogram one
+    // showAxis(xAxisHist);
 
-    g.selectAll('.cough')
-      .transition()
-      .duration(0)
-      .attr('opacity', 0);
+    // g.selectAll('.cough')
+      // .transition()
+      // .duration(0)
+      // .attr('opacity', 0);
 
-    // named transition to ensure
-    // color change is not clobbered
-    g.selectAll('.hist')
-      .transition('color')
-      .duration(500)
-      .style('fill', '#008080');
+    // // named transition to ensure
+    // // color change is not clobbered
+    // g.selectAll('.hist')
+      // .transition('color')
+      // .duration(500)
+      // .style('fill', '#008080');
 
-    g.selectAll('.hist')
-      .transition()
-      .duration(1200)
-      .attr('y', function (d) { return yHistScale(d.length); })
-      .attr('height', function (d) { return height - yHistScale(d.length); })
-      .style('opacity', 1.0);
+    // g.selectAll('.hist')
+      // .transition()
+      // .duration(1200)
+      // .attr('y', function (d) { return yHistScale(d.length); })
+      // .attr('height', function (d) { return height - yHistScale(d.length); })
+      // .style('opacity', 1.0);
   }
 
   /**
@@ -897,15 +897,15 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    *
    */
   function show7() {
-    // ensure the axis to histogram one
-    showAxis(xAxisHist);
+    // // ensure the axis to histogram one
+    // showAxis(xAxisHist);
 
-    g.selectAll('.hist')
-      .transition()
-      .duration(600)
-      .attr('y', function (d) { return yHistScale(d.length); })
-      .attr('height', function (d) { return height - yHistScale(d.length); })
-      .style('opacity', 1.0);
+    // g.selectAll('.hist')
+      // .transition()
+      // .duration(600)
+      // .attr('y', function (d) { return yHistScale(d.length); })
+      // .attr('height', function (d) { return height - yHistScale(d.length); })
+      // .style('opacity', 1.0);
   }
 
   /**
@@ -953,17 +953,17 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    *  how far user has scrolled in section
    */
   function updateCough(progress) {
-    g.selectAll('.cough')
-      .transition()
-      .duration(0)
-      .attr('opacity', progress);
+    // g.selectAll('.cough')
+      // .transition()
+      // .duration(0)
+      // .attr('opacity', progress);
 
-    g.selectAll('.hist')
-      .transition('cough')
-      .duration(0)
-      .style('fill', function (d) {
-        return (d.x0 >= 14) ? coughColorScale(progress) : '#008080';
-      });
+    // g.selectAll('.hist')
+      // .transition('cough')
+      // .duration(0)
+      // .style('fill', function (d) {
+        // return (d.x0 >= 14) ? coughColorScale(progress) : '#008080';
+      // });
   }
 
   /**
