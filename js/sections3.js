@@ -544,26 +544,27 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
     activateFunctions[3] = show3;
     activateFunctions[4] = show4;
 	activateFunctions[5] = trend;
-    activateFunctions[6] = show5;
-    activateFunctions[7] = show6;
-    activateFunctions[8] = show7;
-    activateFunctions[9] = show8;
-	activateFunctions[10] = show9;
-	activateFunctions[11] = show10;
-	activateFunctions[12] = show11;
-	activateFunctions[13] = show12;
-	activateFunctions[14] = show13;
-	activateFunctions[15] = show14;
-	activateFunctions[16] = show15;
-	activateFunctions[17] = show16;
-	activateFunctions[18] = show17;
-	activateFunctions[19] = show18;
-	activateFunctions[20] = show19;
-	activateFunctions[21] = show20;
-	activateFunctions[22] = show21;
-	activateFunctions[23] = show22;
-	activateFunctions[24] = show23;
-	activateFunctions[25] = show24;
+	activateFunctions[6] = blank;
+    activateFunctions[7] = show5;
+    activateFunctions[8] = show6;
+    activateFunctions[9] = show7;
+    activateFunctions[10] = show8;
+	activateFunctions[11] = show9;
+	activateFunctions[12] = show10;
+	activateFunctions[13] = show11;
+	activateFunctions[14] = show12;
+	activateFunctions[15] = show13;
+	activateFunctions[16] = show14;
+	activateFunctions[17] = show15;
+	activateFunctions[18] = show16;
+	activateFunctions[19] = show17;
+	activateFunctions[20] = show18;
+	activateFunctions[21] = show19;
+	activateFunctions[22] = show20;
+	activateFunctions[23] = show21;
+	activateFunctions[24] = show22;
+	activateFunctions[25] = show23;
+	activateFunctions[26] = show24;
 	
 
     // updateFunctions are called while
@@ -572,7 +573,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
     // Most sections do not need to be updated
     // for all scrolling and so are set to
     // no-op functions.
-    for (var i = 0; i < 22; i++) {
+    for (var i = 0; i < 26; i++) {
       updateFunctions[i] = function () {};
     }
     //updateFunctions[7] = updateCough;
@@ -831,6 +832,12 @@ function trend() {
    * shows: first half of histogram
    *
    */
+   
+   
+   function blank() {
+	   document.getElementById('trend').style.opacity = 0;
+	   
+   };
   function show5() {
     // switch the axis to histogram one
     //showAxis(xAxisHist);
@@ -1072,6 +1079,8 @@ function trend() {
   function show24() {
 	  hideLine();
   }
+  
+  
   /**
    * showAxis - helper function to
    * display particular xAxis

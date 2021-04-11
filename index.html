@@ -69,6 +69,18 @@
 		In order to remove the trend of each each signal, we subtract the the regression values at time <em>t</em> actual values at time <em>t</em>, and then add back the mean of the original signal. Examples of the transformation are depicted here.</p>
       </section>  
       <section class="step">
+        <div class="title"><h3>Feature Engineering</h3></div>
+        <p>We augment our data with more information by performing various feature engineering procedures. For all 67 of our features, we compute rolling statistics including the median, mean, and standard deviation, skew, kurtosis, relative minima and maxima, exponential weighted moving average, relative level mean, among others (total of 13 technical analysis indicators).
+		This is done for different rolling window sizes according to the following lookback periods: one week, one month, one quarter, one half of a year, and one year. Next, we cover how we narrowed down our features, for which we employ a five-step process:</p>
+		<ul>
+			<li>Removing columns with more than 1% of missing data</li>
+			<li>Univariate feature selection</li>
+			<li>Correlation filter</li>
+			<li>REFCV for various estimators</li>
+			<li>PCA</li>
+		</ul>
+      </section>
+      <section class="step">
         <div class="title">Removing Columns With Missing Data</div>
         <p>We removed the columns where more than 1% of values were missing. This got rid of about 13% of our 4500 columns.</p>
       </section>
