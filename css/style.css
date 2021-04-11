@@ -79,6 +79,11 @@
 
 }
 
+#results {
+
+top:100px;
+}
+
 #pca1 {
     height: auto; 
     width: auto; 

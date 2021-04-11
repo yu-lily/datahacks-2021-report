@@ -17,7 +17,10 @@
 		It is a capitalization-weighted index which measures the stock performance of the top 500 enterprises in the United States. Successful predictive models of this and other market indexes have clear, obvious real world benefits, showing investors where and when to invest their money.
 		In this report, we document our attempts to predict the S&P 500 using data from other financial indicators (provided by Vulcan Value Partners) and features we extract from these datasets.</p>
 		
-		<p>Upon interpolation and dimensionality reduction, we adopt various recurrent neural network (RNN)-based models for fitting and generating adequate forecasts across the following time frames: 1 week, 1 month, and 1 year. </p>
+		<p>Upon interpolation and dimensionality reduction, we adopt various recurrent neural network (RNN)-based models for fitting and generating adequate forecasts across the following time frames:
+		1 week, 1 month, and 1 year. We find that these models perform well on the training bull stocks within the S & P 500 timeframe (i.e., when the S & P 500 values were visible),
+		but struggle when the economy begins to recede. As such, we would need S & P 500 data from further back in order to account for the 2008 crash.
+		This would enable our deep learning-based forecasting models to project future events such as the COVID-19 pandemic. </p>
       </section>
       <section class="step">
         <div class="title">Overview of Data</div>
@@ -174,9 +177,21 @@
 			A lower learning rate and batch size might help with faster convergence, but the model needs a different architecture to learn a better internal representation.</li>
 			<li>ConvLSTM’s had the fastest convergence of the three models given the ease of parallelizing convolutional operations on the GPU.</li>
 		</ol>
-		
-        <p></p>
       </section>
+	  
+      <section class="step">
+        <div class="title">Feature Importances</div>
+        <p>The most important features of our best performing model are shown in the acompanying tables in terms of their absolute weight values.</p>
+		
+		<p>Key takeways:</p>
+		<ul>
+			<li>Inflation and producer price indices are important at all time horizons</li>
+			<li>In the short run (1 week), markets seem to be dictated by inflation. This can be seen by the presence of features like: 10-year inflation rate and multiple producer price indices ranging from information to industry.</li>
+			<li>In the medium run (1 month), industrial production and cost seems to play a key role.</li>
+			<li>In the long run (1 year), foreign exchange and different consumer credit rates seem to play a key role. These include things like mortgage and primary credit rates.</li>
+		</ul>
+      </section>
+	  
       <section class="step">
         <div class="title">Proposal and Experimental Testing</div>
         <p>We break down our model proposal as follows:<br><br>
@@ -197,6 +212,29 @@
 			</li>
 		</ul>
       </section>
+	  
+      <section class="step">
+        <div class="title">Results</div>
+        <p>The displayed results were derived by evaluating our best model on standardized S&P500 values over 100 epochs with early stopping, learning rate set to 10<sup>-4</sup> and batch size=72. There is some room for improvement by tuning the hyperparameters.
+		The standard deviation of S&P500 values is 1 so you can judge the square root of these values with respect to 1.</p>
+		
+		<p>
+		There are a few takeaways here:
+		</p>
+		
+		<ol>
+			<li>Our model seems to perform a bit better over longer time horizons.
+				<ol>
+					<li>The 1 year performance is the model’s strongpoint.</li>
+				</ol></li>
+			<li>All these three test points were in massive bull markets so we should probably test it out more in bear markets.</li>
+			<li>The model struggled to predict the dip in the market during COVID as it did not value Infectious Diseases as an important feature.</li>
+			<li>This might be because the last time there was a spike in Infectious Diseases rate, in 2011 during the swine flu, we did not see any major impacts on the market.</li>
+			<li>Also the markets seem immune to bad flu seasons during the time period that this model was trained on (2011-2015).</li>
+			<li>The model has not seen what a recession looks like given it was trained from 2011 onwards so it struggled to perform well when the COVID-crash occurred.</li>
+		</ol>
+      </section>
+	  
       <section class="step">
         <div class="title"><h3>Conclusion</h3></div>
         <p>Our goal for this study is to find and optimize sequential forecasting models to generate predictions across three different time frames: one week, one month, and one year.
@@ -249,6 +287,8 @@
 		<img src="data/models2.png", id='models2', class='models'>
 		<img src="data/models3.png", id='models3', class='models'>
 		<img src="data/models_pairplot.png", id='models_pairplot'>
+		<img src="data/features.png", id='features'>
+		<img src="data/results.png", id='results'>
 		
     </div>
     <div id="extra-space">

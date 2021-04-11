@@ -562,6 +562,8 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 	activateFunctions[21] = show20;
 	activateFunctions[22] = show21;
 	activateFunctions[23] = show22;
+	activateFunctions[24] = show23;
+	activateFunctions[25] = show24;
 	
 
     // updateFunctions are called while
@@ -1041,21 +1043,35 @@ function trend() {
 	  hideLine();
 	  document.getElementById('models3').style.opacity = 0;
 	  document.getElementById('models_pairplot').style.opacity = 1;
+	  document.getElementById('features').style.opacity = 0;
   }
   
   function show20() {
 	  hideLine();
-	  document.getElementById('models_pairplot').style.opacity = 1;
+	  document.getElementById('models_pairplot').style.opacity = 0;
+	  document.getElementById('features').style.opacity = 1;
   }
   
   function show21() {
 	  hideLine();
+	  
+	  document.getElementById('results').style.opacity = 0;
   }
   
   function show22() {
 	  hideLine();
+	  document.getElementById('features').style.opacity = 0;
+	  document.getElementById('results').style.opacity = 1;
   }
-
+  
+  function show23() {
+	  hideLine();
+	  document.getElementById('results').style.opacity = 0;
+  }
+  
+  function show24() {
+	  hideLine();
+  }
   /**
    * showAxis - helper function to
    * display particular xAxis
