@@ -1054,7 +1054,7 @@ function trend() {
   
   function show21() {
 	  hideLine();
-	  
+	  document.getElementById('features').style.opacity = 1;
 	  document.getElementById('results').style.opacity = 0;
   }
   
