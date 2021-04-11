@@ -799,6 +799,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 	document.getElementById('imputation').style.opacity = 0;
 	document.getElementById('seasonality1').style.opacity = 1;
 	document.getElementById('seasonality2').style.opacity = 1;
+	document.getElementById('trend').style.opacity = 0;
     // g.selectAll('.cor')
       // .transition()
       // .duration(0)
@@ -808,6 +809,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 function trend() {
 	document.getElementById('seasonality1').style.opacity = 0;
 	document.getElementById('seasonality2').style.opacity = 0;
+	document.getElementById('trend').style.opacity = 1;
 }
   /**
    * showHistPart - shows the first part
@@ -842,7 +844,7 @@ function trend() {
       // .style('opacity', function (d) { return (d.x0 < 15) ? 1.0 : 1e-6; });
 
 	
-	
+	document.getElementById('trend').style.opacity = 0;
 	document.getElementById('mutual_info').style.opacity = 0;
 	
 	// g.selectAll('.cor')
@@ -996,6 +998,7 @@ function trend() {
   function show18() {
 	  document.getElementById('models2').style.opacity = 0;
 	  document.getElementById('models3').style.opacity = 1;
+	  document.getElementById('models_pairplot').style.opacity = 0;
   }
   
   function show19() {

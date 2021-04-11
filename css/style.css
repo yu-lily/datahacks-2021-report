@@ -91,6 +91,13 @@
     max-height: auto;
 }
 
+#trend {
+    height: auto; 
+    width: auto; 
+    max-width: 115%; 
+    max-height: auto;
+}
+
 #seasonality1 {
     height: auto; 
     width: auto; 

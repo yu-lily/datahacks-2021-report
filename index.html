@@ -34,54 +34,78 @@
       </section>
       <section class="step">
         <div class="title">Data Cleaning / Preprocessing</div>
-        We had <b>3.33%</b> missingness of data
+        <p>As we are extracting our data from a raw real-time dataset, the dataset contains both valid, informative data and some invalid information such as missing values due to the various measure rates and holidays.
+		To obtain a readable, clear, and understandable dataset, we will be performing data cleaning to assure the accuracy for our data modeling.</p>
       </section>
       <section class="step">
         <div class="title">Missing Data Imputation</div>
-		We handled null values like this...
-		[EXPLAIN HOW WE IMPUTED THE DATA]
+		<p>For imputing missing data, we explored multiple different data imputation strategies including but not limited to:</p>
+		<ol>
+			<li>Interpolate using length of interval (time)</li>
+			<li>Forward/Backward Fill</li>
+			<li>Rolling Statistics (Mean/Median)</li>
+		</ol>
+		<p>To pick a strategy, we computed the R-squared values on our validation set with all the following methods to find the strategy that produced the strongest linear correlation with the target variable.
+		Interpolating with time provided us with the best results.</p>
       </section>
       <section class="step">
         <div class="title">Removing Seasonality: Curve Fitting</div>
-        Here's a correlation heatmap of the features we extracted. We found these features most predictive...
+        <p>We adopt a polynomial fitting method to remove seasonality from a subset of features (see Visualization section), which was preferred to differencing as we retain all data points of that feature.
+		Our model for polynomial fitting is of order 4 and is analytically written as:</p><br>
+		<center><em>y=x<sup>4</sup>b<sub>1</sub>+x<sup>3</sup>b<sub>2</sub>+x<sup>2</sup>b<sub>3</sub>+xb<sub>4</sub>+b<sub>5</sub></em></center><br>
+		<p><em>x</em> is our time index, which is the day of the year (each of features are interpolated to fit a daily format), and <em>b<sub>i</sub></em> are our learnable coefficients.
+		Shown here are examples of results on a couple of the seasonal features before and after removing seasonality.</p>
       </section>
       <section class="step">
         <div class="title">Removing Trend</div>
-        Here's a correlation heatmap of the features we extracted. We found these features most predictive...
+        <p>We perform linear regression on a subset of our data such that <em>R<sup>2</sup></em> &#8805; 0.75.
+		In order to remove the trend of each each signal, we subtract the the regression values at time <em>t</em> actual values at time <em>t</em>, and then add back the mean of the original signal. Examples of the transformation are depicted below.</p>
       </section>  
       <section class="step">
         <div class="title">Removing Columns With Missing Data</div>
-        Here's a correlation heatmap of the features we extracted. We found these features most predictive...
+        <p>We removed the columns where more than 1% of values were missing. This got rid of about 13% of our 4500 columns.</p>
       </section>
       <section class="step">
         <div class="title">Univariate Feature Selection</div>
-        Comparison between actual and predicted prices...
-		We chose this model because...
-		(Possibly split this part into week, month, year timeframes)	
+        <p>We computed the Mutual Information scores for all the feature engineered columns and dropped the bottom 40% of columns by mutual information.</p>	
       </section>
       <section class="step">
         <div class="title">Correlation-Based Feature Selection - Before</div>
-		We chose this model because...
+		<p>We computed the Spearman Correlation with the remaining columns and drop columns that have a correlation coefficient higher than 0.95. A correlation heatmap generated before this operation is shown here.</p>
       </section>
       <section class="step">
         <div class="title">Correlation-Based Feature Selection - After</div>
-		We chose this model because...
+		<p>After dropping columns, you can see how there are fewer darker patches at the center indicating a loss of correlated columns. We dropped around 37% (827) of the remaining columns with this step.</p>
       </section>
       <section class="step">
         <div class="title">Recursive Feature Elimination and Cross-Validation</div>
-        Visualization of error of our prediction
+        <p>After using two filtering methods (mutual information and correlation), the next step is to use a wrapper method RFECV for each individual classifier.
+		The RFECV function uses recursive feature elimination for a user-defined base estimator to rank the features and use cross-validation to select the best number of features.</p>
       </section>
       <section class="step">
         <div class="title">Dimensionality Reduction - PCA</div>
-        Not sure if we'll need this section...
+        <p>After getting the best subset of features with RFECV, PCA will be applied to further reduce the dimension of our selected features. To preserve the most amount of information, we keep the number of components that can explain at least 99% of the total variance.
+		We explored other techniques like TSNE here, but didn’t see any significant differences in model performance suggesting that PCA does a good enough job of learning model representations.</p>
       </section>
       <section class="step">
         <div class="title">Visualizations - Time Series Plots</div>
-        Not sure if we'll need this section...
+        <p>Each variable in the dataset is represented as a time series, meaning the data points are indexed in time order. The sequences in our dataset aren’t necessarily taken at successive equally spaced points.
+		As evidenced in the example above, the data points for each variable are taken at different times and at different frequencies, producing many gaps to be filled.</p>
+		<p>The first factor to account for when modeling time series data is seasonality, one of the main features of a time series decomposition. Seasonality occurs when there are patterns occurring multiple times a year. It is influenced by phenomena including weather or holidays. Seasonal adjustment removes these influences of these phenomena.
+		The majority of the features in this dataset are not seasonally adjusted. We run tests for seasonality on the non-adjusted features and remove these variations accordingly.</p>
       </section>
       <section class="step">
         <div class="title">Visualizations - Missingness</div>
-        Not sure if we'll need this section...
+        <p>As this dataset contains many different measures collected at different times and rates, a majority of the values will be missing. In the above heatmap, each of the black pixels indicates a missing value.
+		Some observations are that the only measures that are  collected constantly throughout the date range of this dataset are the Equity Market Volatility: Infectious Disease Tracker and Equity Market-Related Economic Uncertainty indices.
+		As both of these measure economic uncertainty, we hypothesize that these will serve as important features for our forecasting models.</p>
+		<p>Also, the data for the S&P 500 index, the target variable, don’t appear in this dataset until early 2011. For this reason, we omit all data that are collected before early 2010,
+		one year before S&P 500 visibility, as we still need some information leading up to that point, as discussed in the previous section.</p>
+		<p>Another observation is that as indicated by the clusters of non-missing data for measures that are collected monthly, such as the unemployment rate, and the Gross Value of Industrial Products (GVIP) indicators, is that they are collected on a somewhat consistent basis within a few months that occur every two years.
+		The unemployment rates in this dataset are collected with a Household Survey which may be administered at these points in time. The reasons for the GVIP missingness are unknown.</p>
+		<p>Additionally, the inconsistencies in the missingness patterns in the monthly data in particular suggest that the data are collected at different days within each month.
+		This is likely due to seasonal patterns, which we visualize later in this section. We hypothesize that this will have a minimal impact on our forecasting models.</p>
+		
       </section>
       <section class="step">
         <div class="title">Visualizations - Seasonality</div>
@@ -93,27 +117,41 @@
       </section>
       <section class="step">
         <div class="title">Analysis and Modeling</div>
-        Not sure if we'll need this section...
+        <p>Given the abundance of rich data after cleaning and preprocessing and the complex non-linear ways in which the equities markets react to the economy,
+		we felt that deep-learning based approaches should in-theory provide us the best results.
+		Given the sequential nature of our input data, LSTM-based models were the natural choice. We explored three different sub-classes of models:</p>
       </section>
       <section class="step">
         <div class="title">Vanilla LSTM Architecture</div>
-        Not sure if we'll need this section...
+        <p>This is a run of the mill LSTM model with 50 units and trained with a learning rate set to 10<sup>-3</sup>.
+		The unique architecture of the LSTM cell pictured below ensures that gradients don’t die down during backprop through time making it a significant upgrade especially for the 1 year timeframe where the backprop goes through many layers leading to gradients dying down and nonoptimal convergence in conventional RNN.</p>
 	  </section>
       <section class="step">
         <div class="title">LSTM Encoder-Decoder Architecture</div>
-        Not sure if we'll need this section...
+        <p>We chose this architecture because it uses a very different modeling approach to the underlying data generating process.
+		This architecture bears a strong resemblance to an autoencoder and similar to an autoencoder it tries to learn good internal representations of the data generating process.
+		Both our encoder and decoder used 200 units and were trained with a learning rate of 10<sup>-4</sup>.</p>
       </section>
       <section class="step">
         <div class="title">ConvLSTM Architecture</div>
-        Not sure if we'll need this section...
+        <p>ConvLSTM is another unique approach to modelling the data generating process where it combines a convolution layer with an LSTM cell.
+		This allows the model to learn to look at both shorter time horizons and longer time horizons at the same time as can be seen in the figure below (one box in the top layer is equal to 9 boxes in the bottom layer giving it a much wider field of view).
+		This should, in theory, allow the model to exploit the best of both worlds when being evaluated on sequences of different lengths. This is also verified by the model performing similarly on all three horizons of data it was fed.
+		This model was trained with 64 filters, 20 units and a learning rate of 10<sup>-3</sup>.</p>
       </section>
       <section class="step">
         <div class="title">Takeaways</div>
-        Our results differed across time frames in these ways... because...
-      </section>
-      <section class="step">
-        <div class="title">Conclusion</div>
-        We learned this from the project...
+		<ol>
+			<li>Our models generally performed better at shorter time horizons i.e. all models recorded a lower validation error when the input sequence had fewer timesteps (1 week vs 1 year). This might suggest a failure in capturing seasonality.</li>
+			<li>Every single model strongly overfitted to the input data suggesting a failure in learning the underlying data generating process. This might suggest that our LSTM models are way too powerful and have just gotten really good at remembering data. </li>
+			<li><em>Note:</em> The subpar performance on the validation set might not be a terrible thing if you believe in the efficient market hypothesis. Since the SPY values are standardized, Being 0.4 units away on average isn’t necessarily bad given the standard deviation is 1 unit. However, this model might not be very effective for day trading.</li>
+			<li>Simpler models generally performed better than more complex models as can be seen by the performance of vanilla LSTM with others.</li>
+			<li>We believe there is room for improvement and hyperparameter tuning with the encoder-decoder model as it struggled to learn an internal representation that is powerful enough to effectively separate the output signal. This is reflected in a very ragged loss curve which is highly sensitive to small movements in the hyperplane.
+			A lower learning rate and batch size might help with faster convergence, but the model needs a different architecture to learn a better internal representation.</li>
+			<li>ConvLSTM’s had the fastest convergence of the three models given the ease of parallelizing convolutional operations on the GPU.</li>
+		</ol>
+		
+        <p></p>
       </section>
       <section class="step">
         <div class="title">End</div>
@@ -135,6 +173,7 @@
 		<img src="data/imputation.png", id='imputation'>
 		<img src="data/seasonality1.png", id='seasonality1'>
 		<img src="data/seasonality2.png", id='seasonality2'>
+		<img src="data/trend.png", id='trend'>
 		<img src="data/mutual_info.png", id='mutual_info'>
 		<img src="data/feature_selection_before.png", id='feature_selection_before'>
 		<img src="data/feature_selection_after.png", id='feature_selection_after'>
