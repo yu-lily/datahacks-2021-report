@@ -180,20 +180,30 @@ var scrollVis = function () {
       .attr('opacity', 0);
 
     // count filler word count title
-    g.append('text')
-      .attr('class', 'title count-title highlight')
-      .attr('x', width / 2)
-      .attr('y', height / 3)
-      .text('180');
+    // g.append('text')
+      // .attr('class', 'title count-title highlight')
+      // .attr('x', width / 2)
+      // .attr('y', height / 3)
+      // .text('180');
 
-    g.append('text')
-      .attr('class', 'sub-title count-title')
-      .attr('x', width / 2)
-      .attr('y', (height / 3) + (height / 5))
-      .text('Filler Words');
+    // g.append('text')
+      // .attr('class', 'sub-title count-title')
+      // .attr('x', width / 2)
+      // .attr('y', (height / 3) + (height / 5))
+      // .text('Filler Words');
 
-    g.selectAll('.count-title')
-      .attr('opacity', 0);
+    // g.selectAll('.count-title')
+      // .attr('opacity', 0);
+	  
+	g.append("svg:image")
+	  .attr("xlink:href", "data/missingness_hm_inverted_edited.png")
+	  .attr('class', 'image missingness')
+	  .attr("x", -40)
+	  .attr("y", "0")
+	  .attr("height", height)
+	  .attr("width", width)
+	  .attr('opacity', 0);
+	  
 
     // square grid
     // @v4 Using .merge here to ensure
@@ -345,6 +355,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 				  .classed('line', true)
 				  .attr('opacity', 1);
 
+				//Add title
 				g.append("text")
 					.attr("x", (width / 2))             
 					.attr("y", 0 - (margin.top / 2))
@@ -380,7 +391,72 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
     }
 			})
 //LINE CHART END
+//LINE CHART 2 START
+			d3.csv("data/sp500.csv",
 
+			  // When reading the csv, I must format variables:
+			  function(d){
+				return { date : d3.timeParse("%Y-%m-%d")(d.date), value : d.value }
+			  },
+
+			  // Now I can use this dataset:
+			  function(data) {
+
+				// Add X axis --> it is a date format
+				var x = d3.scaleTime()
+				  .domain(d3.extent(data, function(d) { return d.date; }))
+				  .range([ 0, width ]);
+				g.append("g")
+				  .attr("transform", "translate(0," + height + ")")
+				  .call(d3.axisBottom(x))
+				  .classed('line2', true)
+				  .attr('opacity', 0);
+
+				// Add Y axis
+				var y = d3.scaleLinear()
+				  .domain([0, 2800])
+				  .range([ height, 0 ]);
+				g.append("g")
+				  .call(d3.axisLeft(y))
+				  .classed('line2', true)
+				  .attr('opacity', 0);
+			
+				// Add title
+				g.append("text")
+					.attr("x", (width / 2))             
+					.attr("y", 0 - (margin.top / 2))
+					.attr("text-anchor", "middle")  
+					.classed('line2', true)
+					.attr('opacity', 0)
+					.style("font-family", 'Arial,Helvetica,"san-serif"')
+					.text('LSTM Model');
+
+				// Add the line
+				g.append("path")
+				  .datum(data)
+				  .attr("fill", "none")
+				  .attr("stroke", "steelblue")
+				  .attr("stroke-width", 1.5)
+				  .attr("d", d3.line()
+					.x(function(d) { return x(d.date) })
+					.y(function(d) { return y(d.value) })
+					)
+				  .classed('line2-main', true)
+				  .attr('opacity', 0)
+				  .call(transition);
+				  
+    function transition(path) {
+        path.transition()
+            .duration(1000)
+            .attrTween("stroke-dasharray", tweenDash);
+    }
+    function tweenDash() {
+        var l = this.getTotalLength(),
+            i = d3.interpolateString("0," + l, l + "," + l);
+        return function (t) { return i(t); };
+    }
+			})
+//LINE CHART 2 END
     // barchart
     var bars = g.selectAll('.bar').data(fillerCounts);
     var barsE = bars.enter()
@@ -532,6 +608,11 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       .attr('opacity', 1)
 	  .call(transition);
 
+    g.selectAll('.missingness')
+      .transition()
+      .duration(500)
+      .attr('opacity', 0);
+
   }
 
   /**
@@ -560,12 +641,17 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 	  
     g.selectAll('.line')
       .transition()
-      .duration(1000)
+      .duration(500)
       .attr('opacity', 0);
     g.selectAll('.line-main')
       .transition()
-      .duration(2000)
+      .duration(500)
       .attr('opacity', 0);
+	  
+    g.selectAll('.missingness')
+      .transition()
+      .duration(1000)
+      .attr('opacity', 1);
   }
 
   /**
@@ -605,6 +691,11 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       .duration(800)
       .attr('opacity', 1.0)
       .attr('fill', function (d) { return d.filler ? '#008080' : '#ddd'; });
+	  
+    g.selectAll('.missingness')
+      .transition()
+      .duration(500)
+      .attr('opacity', 0);
   }
 
   /**
@@ -664,12 +755,12 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 
 
 
-    g.selectAll('.hist')
-      .transition()
-      .duration(600)
-      .attr('height', function () { return 0; })
-      .attr('y', function () { return height; })
-      .style('opacity', 0);
+    // g.selectAll('.hist')
+      // .transition()
+      // .duration(600)
+      // .attr('height', function () { return 0; })
+      // .attr('y', function () { return height; })
+      // .style('opacity', 0);
 
     // g.selectAll('.bar')
       // .transition()
@@ -687,6 +778,18 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       .transition()
       .duration(600)
       .attr('opacity', 1);
+	  
+	  
+    g.selectAll('.line2')
+      .transition()
+      .duration(600)
+      .attr('opacity', 0);
+	  
+	
+    g.selectAll('.line2-main')
+      .transition()
+      .duration(0)
+      .attr('opacity', 0);
 
   }
 
@@ -701,7 +804,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
    */
   function show5() {
     // switch the axis to histogram one
-    showAxis(xAxisHist);
+    //showAxis(xAxisHist);
 
     // g.selectAll('.bar-text')
       // .transition()
@@ -715,17 +818,39 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
 
     // here we only show a bar if
     // it is before the 15 minute mark
-    g.selectAll('.hist')
-      .transition()
-      .duration(600)
-      .attr('y', function (d) { return (d.x0 < 15) ? yHistScale(d.length) : height; })
-      .attr('height', function (d) { return (d.x0 < 15) ? height - yHistScale(d.length) : 0; })
-      .style('opacity', function (d) { return (d.x0 < 15) ? 1.0 : 1e-6; });
+    // g.selectAll('.hist')
+      // .transition()
+      // .duration(600)
+      // .attr('y', function (d) { return (d.x0 < 15) ? yHistScale(d.length) : height; })
+      // .attr('height', function (d) { return (d.x0 < 15) ? height - yHistScale(d.length) : 0; })
+      // .style('opacity', function (d) { return (d.x0 < 15) ? 1.0 : 1e-6; });
 	  
     g.selectAll('.cor')
       .transition()
       .duration(0)
       .attr('opacity', 0);
+	  
+    g.selectAll('.line2')
+      .transition()
+      .duration(600)
+      .attr('opacity', 1.0);
+	  
+    function transition(path) {
+        path.transition()
+            .duration(1000)
+            .attrTween("stroke-dasharray", tweenDash);
+    }
+    function tweenDash() {
+        var l = this.getTotalLength(),
+            i = d3.interpolateString("0," + l, l + "," + l);
+        return function (t) { return i(t); };
+    }
+	
+    g.selectAll('.line2-main')
+      .transition()
+      .duration(0)
+      .attr('opacity', 1)
+	  .call(transition);
   }
 
   /**
